@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 123456
+      url: jdbc:mysql://127.0.0.1:3306/erp?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+      max-active: 20
+      max-wait: 5000
+      initial-size: 1
+      filters: stat,log4j,wall
+      validation-query: SELECT 'x'
+      enable: true
+      stat-view-servlet:
+        enabled: true
+        login-username: root
+        login-password: 123456
+        url-pattern: /druid/*
+  thymeleaf:
+    cache: true
+    enabled: true
+    encoding: UTF-8
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+mybatis-plus:
+  
+  mapper-locations: mapper/*/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+shiro:
+  hash-algorithm-name: MD5
+  hash-iterations: 2
+  anon-urls:
+    - /resources/**
+    - /user/**
+    - /LogInfo/**
+  login-url: /sys/login
+  log-out-url: /login/logout*
+  authc-ulrs:
+    - /**
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
