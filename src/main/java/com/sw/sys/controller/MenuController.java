@@ -25,7 +25,7 @@ public class MenuController {
     @Autowired
     private PermissionServiceImpl permissionServiceImpl;
 
-    @RequestMapping(value = "loadIndexLeftMenuJson")
+    @RequestMapping(value = "/loadIndexLeftMenuJson")
     public DataGridView loadIndexLeftMenuJson(PermissionVo permissionVo) {
         // 查询菜单
         QueryWrapper<Permission> wrapper = new QueryWrapper<>();

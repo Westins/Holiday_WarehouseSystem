@@ -13,10 +13,8 @@ layui.use(['form','layer','jquery'],function(){
     form.on("submit(login)",function(data){
         var btn = $(this);
         btn.text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
-        console.log("msg:"+JSON.stringify(data.field))
         $.post("/user/login",data.field,function(obj){
             //设置登录按钮 恢复可点击   在前端防止 重复点击
-            console.log("obj:"+JSON.stringify(obj))
             btn.text("登录").attr("disabled",false).removeClass("layui-disabled");
             layer.msg(obj.msg);
             if(obj.code == 1){

@@ -35,7 +35,7 @@ public class LogInfoController {
      * @param logInfoVo
      * @return
      */
-    @RequestMapping(value = "loadAllLogInfo")
+    @RequestMapping(value = "/loadAllLogInfo")
     public DataGridView loadAllLogInfo(LogInfoVo logInfoVo) {
         QueryWrapper<LogInfo> wrapper = new QueryWrapper<>();
         // 模糊查询 loginName
@@ -63,7 +63,7 @@ public class LogInfoController {
      * @param id
      * @return
      */
-    @RequestMapping("deleteLogInfo")
+    @RequestMapping("/deleteLogInfo")
     public ResultObj deleteLogInfo(Integer id) {
         try {
             this.logInfoServiceImpl.removeById(id);
@@ -81,7 +81,7 @@ public class LogInfoController {
      * @param loginfoVo
      * @return
      */
-    @RequestMapping("batchDeleteLogInfo")
+    @RequestMapping("/batchDeleteLogInfo")
     public ResultObj batchDeleteLogInfo(LogInfoVo loginfoVo) {
         try {
             Collection<Serializable> idList=new ArrayList<Serializable>();
