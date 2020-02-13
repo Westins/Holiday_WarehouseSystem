@@ -130,7 +130,7 @@
 
 		var mainIndex;
 		var url;
-		var editIndex = layedit.build('content');
+		var editIndex = null;
 
 		//初始化时间选择器
 		laydate.render({
@@ -207,6 +207,7 @@
 				title:'发布公告',
 				success:function(){
 					$("#dataFrm")[0].reset();
+					editIndex = layedit.build('content');
 					layedit.setContent(editIndex,"");
 					url="/notice/saveNotice";
 				}
@@ -222,6 +223,7 @@
 				title:'修改公告',
 				success:function(){
 					$("#dataFrm")[0].reset();
+					editIndex = layedit.build('content');
 					//装载新的数据
 					form.val("dataFrm",data);
 					layedit.setContent(editIndex,data.content);
