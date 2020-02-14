@@ -6,7 +6,7 @@ import com.sw.sys.pojo.Permission;
 /**
  * @description:
  * @author: sw
- * @time: 2020/2/11 11:27
+ * @time: 2020/2/14 16:40
  */
 public interface PermissionService extends IService<Permission> {
 }

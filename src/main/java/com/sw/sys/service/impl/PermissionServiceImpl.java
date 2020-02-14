@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @description:
  * @author: sw
- * @time: 2020/2/11 11:27
+ * @time: 2020/2/14 16:37
  */
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
