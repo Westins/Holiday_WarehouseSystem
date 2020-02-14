@@ -16,6 +16,10 @@ spring:
         login-username: root
         login-password: 123456
         url-pattern: /druid/*
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
   thymeleaf:
     cache: true
     enabled: true
@@ -29,7 +33,6 @@ spring:
       charset: UTF-8
       enabled: true
 mybatis-plus:
-  
   mapper-locations: mapper/*/*.xml
   configuration:
     map-underscore-to-camel-case: false
