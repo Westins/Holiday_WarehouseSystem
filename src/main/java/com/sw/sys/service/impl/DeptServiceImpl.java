@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sw.sys.dao.DeptMapper;
 import com.sw.sys.pojo.Dept;
+import com.sw.sys.redis.RedisCache;
 import com.sw.sys.service.DeptService;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     }
 
     @Override
-    public boolean update(Dept entity, Wrapper<Dept> updateWrapper) {
-        return super.update(entity, updateWrapper);
-    }
+    public boolean updateById(Dept entity) {return super.updateById(entity);}
 
     @Override
     public boolean removeById(Serializable id) {
