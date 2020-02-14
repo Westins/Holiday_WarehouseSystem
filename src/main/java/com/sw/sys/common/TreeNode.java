@@ -56,4 +56,16 @@ public class TreeNode {
         this.href = href;
         this.spread = spread;
     }
+
+    /**
+     * 部门管理
+     * 树结构
+     * 构造器
+     */
+    public TreeNode(Integer id, Integer pid, String title,Boolean spread){
+        this.id = id;
+        this.pid = pid;
+        this.title = title;
+        this.spread = spread;
+    }
 }
