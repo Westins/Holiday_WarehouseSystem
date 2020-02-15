@@ -112,7 +112,7 @@
 	   <div class="layui-form-item">
 		    <label class="layui-form-label">排序码</label>
 		    <div class="layui-input-inline">
-		      <input type="text" name="ordernum" id="ordernum" lay-verify="required|number"  autocomplete="off" placeholder="请输入排序码[>0]" class="layui-input">
+		      <input type="text" name="orderNum" id="orderNum" lay-verify="required|number"  autocomplete="off" placeholder="请输入排序码[>0]" class="layui-input">
 		    </div>
  	   </div>
  	   <div class="layui-form-item">
@@ -223,7 +223,7 @@ layui.extend({
 					url="/menu/savePermission";
 					//初始化排序码
 					$.get("/menu/loadMenuMaxOrderNum",function(obj){
-						$("#ordernum").val(obj.value);
+						$("#orderNum").val(obj.value);
 					});
 					selectTree.setSelectValue("");
 				}
@@ -244,7 +244,7 @@ layui.extend({
 					//选中之前父级的菜单  nodeId=data.pid;
 					dtree.dataInit("menuTree", data.pid);
    					dtree.setSelectValue("menuTree");
-   					$("#ordernum").val(data.orderNum);
+   					$("#orderNum").val(data.orderNum);
 					url="/menu/updMenu";
 				}
 			});
@@ -299,7 +299,6 @@ layui.extend({
 		//监听点击的方法
 		dtree.on("node(menuTree)" ,function(obj){
 			$("#pid").val(obj.param.nodeId);
-			  console.log(obj.param.nodeId); // 点击当前节点传递的参数
 		});
 	});
 	

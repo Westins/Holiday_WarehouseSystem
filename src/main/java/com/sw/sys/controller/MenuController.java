@@ -133,10 +133,11 @@ public class MenuController {
         Map<String, Object> map = new HashMap<>();
 
         QueryWrapper<Permission> wrapper = new QueryWrapper();
-        wrapper.orderByAsc("orderNum");
+        wrapper.orderByDesc("orderNum");
         IPage<Permission> page = new Page<>(1, 1);
 
         List<Permission> permissionList = this.permissionServiceImpl.page(page, wrapper).getRecords();
+        System.out.println("ListData:"+permissionList.toString());
         if (permissionList.size() > 0) {
             map.put("value", permissionList.get(0).getOrderNum() + 1);
         } else {
