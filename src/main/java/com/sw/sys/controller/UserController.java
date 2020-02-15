@@ -56,4 +56,11 @@ public class UserController {
             return ResultObj.LOGIN_ERROR_INFO;
         }
     }
+
+    @RequestMapping(value = "/logout")
+    public String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "redirect:/sys/login";
+    }
 }

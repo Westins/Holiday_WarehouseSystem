@@ -44,7 +44,7 @@ shiro:
     - /user/**
     - /LogInfo/**
   login-url: /sys/login
-  log-out-url: /login/logout*
+  log-out-url: /user/logout
   authc-ulrs:
     - /**
 server:
