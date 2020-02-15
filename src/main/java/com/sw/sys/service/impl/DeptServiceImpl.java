@@ -6,6 +6,7 @@ import com.sw.sys.dao.DeptMapper;
 import com.sw.sys.pojo.Dept;
 import com.sw.sys.service.DeptService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
@@ -15,6 +16,7 @@ import java.io.Serializable;
  * @time: 2020/2/14 10:23
  */
 @Service
+@Transactional
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements DeptService {
 
     @Override

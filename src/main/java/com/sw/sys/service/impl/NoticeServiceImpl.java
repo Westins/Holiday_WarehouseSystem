@@ -8,6 +8,7 @@ import com.sw.sys.pojo.User;
 import com.sw.sys.service.NoticeService;
 import com.sw.sys.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @description:
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
  * @time: 2020/2/10 10:16
  */
 @Service
+@Transactional
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
 
 }

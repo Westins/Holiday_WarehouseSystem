@@ -6,6 +6,8 @@ import com.sw.sys.pojo.Permission;
 import com.sw.sys.service.PermissionService;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
+
 /**
  * @description:
  * @author: sw
@@ -14,4 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
 
+    @Override
+    public boolean removeById(Serializable id) {
+
+        PermissionMapper permissionMapper  = this.getBaseMapper();
+        permissionMapper.deletePermissionRole(id);
+
+        return super.removeById(id);
+    }
 }
