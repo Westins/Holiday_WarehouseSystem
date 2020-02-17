@@ -3,7 +3,6 @@ package com.sw.sys.shiro.realm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sw.sys.common.ActiveUser;
 import com.sw.sys.pojo.User;
-import com.sw.sys.service.UserService;
 import com.sw.sys.service.impl.UserServiceImpl;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -38,6 +37,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        System.out.println("对象："+userServiceImpl.getClass().getSimpleName());
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("loginName", authenticationToken.getPrincipal().toString());
         User user = userServiceImpl.getOne(queryWrapper);

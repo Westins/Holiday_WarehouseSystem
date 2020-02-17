@@ -41,4 +41,5 @@ public class ResultObj {
 
     private Integer Code;
     private String msg;
+
 }

@@ -5,6 +5,7 @@ import com.sw.sys.dao.PermissionMapper;
 import com.sw.sys.pojo.Permission;
 import com.sw.sys.service.PermissionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * @time: 2020/2/14 16:37
  */
 @Service
+@Transactional
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
 
     @Override

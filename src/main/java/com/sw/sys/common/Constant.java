@@ -1,7 +1,7 @@
 package com.sw.sys.common;
 
 /**
- * @description: 产量类
+ * @description: 常量类
  * @author: sw
  * @time: 2020/2/10 14:56
  */

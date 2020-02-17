@@ -19,21 +19,20 @@ import java.util.List;
 @NoArgsConstructor
 public class TreeNode {
     /**
-     *  {
-     *       "title": "其他页面",
-     *       "icon": "&#xe630;",
-     *       "href": "",
-     *       "spread": false,
-     *       "children": [
-     *         {
-     *           "title": "404页面",
-     *           "icon": "&#xe61c;",
-     *           "href": "page/404.html",
-     *           "spread": false
-     *         }
-     *       ]
-     *     }
-     *
+     * {
+     * "title": "其他页面",
+     * "icon": "&#xe630;",
+     * "href": "",
+     * "spread": false,
+     * "children": [
+     * {
+     * "title": "404页面",
+     * "icon": "&#xe61c;",
+     * "href": "page/404.html",
+     * "spread": false
+     * }
+     * ]
+     * }
      */
     private Integer id;
     @JsonProperty("parentId")
@@ -43,6 +42,8 @@ public class TreeNode {
     private String href;
     private Boolean spread;
     private List<TreeNode> children = new ArrayList<TreeNode>();
+
+    private String checkArr = "0";//0代表不选中  1代表选中
 
     /**
      * 首页左边导航器
@@ -62,10 +63,18 @@ public class TreeNode {
      * 树结构
      * 构造器
      */
-    public TreeNode(Integer id, Integer pid, String title,Boolean spread){
+    public TreeNode(Integer id, Integer pid, String title, Boolean spread) {
         this.id = id;
         this.pid = pid;
         this.title = title;
         this.spread = spread;
+    }
+
+    public TreeNode(Integer id, Integer pid, String title, Boolean spread, String checkArr) {
+        this.id = id;
+        this.pid = pid;
+        this.title = title;
+        this.spread = spread;
+        this.checkArr = checkArr;
     }
 }
