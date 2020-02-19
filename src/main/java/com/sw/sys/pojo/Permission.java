@@ -10,8 +10,8 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * @description:
- * @author: sw
+ * @description: 菜单 实体类
+ * @author: 单威
  * @time: 2020/2/11 11:22
  */
 @Data

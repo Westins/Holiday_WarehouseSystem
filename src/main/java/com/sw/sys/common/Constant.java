@@ -2,7 +2,7 @@ package com.sw.sys.common;
 
 /**
  * @description: 常量类
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/10 14:56
  */
 
@@ -40,4 +40,9 @@ public interface Constant {
      */
     public static final Integer OPEN_TRUE = 1;
     public static final Integer OPEN_FALSE = 0;
+
+    /**
+     * 用户默认密码
+     */
+    public static final String USER_DEFAULT_PWD = "123456";
 }

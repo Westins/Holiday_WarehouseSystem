@@ -5,12 +5,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @description:
- * @author: sw
+ * @description: Mybatis配置
+ * @author: 单威
  * @time: 2020/2/12 17:02
  */
 @Configuration
 public class MybatisConfig {
+    /**
+     * mybatis 分页插件
+     *
+     * @return
+     */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();

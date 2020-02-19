@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @description:
- * @author: sw
+ * @description: 部门Vo
+ * @author: 单威
  * @time: 2020/2/14 11:16
  */
 @Data

@@ -9,4 +9,5 @@ import com.sw.sys.pojo.User;
  * @time: 2020/2/10 10:16
  */
 public interface UserService extends IService<User> {
+    void saveUserRole(Integer uid, Integer[] ids);
 }

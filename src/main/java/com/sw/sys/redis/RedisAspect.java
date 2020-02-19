@@ -1,14 +1,18 @@
 package com.sw.sys.redis;
 
+
+import com.alibaba.fastjson.JSONArray;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @description:
@@ -28,61 +32,60 @@ public class RedisAspect {
      * 拦截所有元注解RedisCache注解的方法
      */
     @Pointcut(value = "@annotation(com.sw.sys.redis.RedisCache)")
-    public void pointcutMethod(){
+    public void pointcutMethod() {
 
     }
 
     /**
      * 环绕处理，先从Redis里获取缓存,查询不到，就查询MySQL数据库，
      * 然后再保存到Redis缓存里
+     *
      * @param joinPoint
      * @return
      */
     @Around("pointcutMethod()")
-    public Object around(ProceedingJoinPoint joinPoint){
-        //前置：从Redis里获取缓存
+    public Object around(ProceedingJoinPoint joinPoint) {//前置：从Redis里获取缓存
+
+        //获取目标方法所在类
+        String target = joinPoint.getTarget().toString();
+        String className = target.split("@")[0];
+
         //先获取目标方法参数
-        long startTime = System.currentTimeMillis();
         String applId = null;
         Object[] args = joinPoint.getArgs();
         if (args != null && args.length > 0) {
             applId = String.valueOf(args[0]);
         }
 
-        //获取目标方法所在类
-        String target = joinPoint.getTarget().toString();
-        String className = target.split("@")[0];
-
         //获取目标方法的方法名称
         String methodName = joinPoint.getSignature().getName();
 
-        //redis中key格式：    applId:方法名称
-        String redisKey = applId + ":" + className + "." + methodName;
+        //redis中key
+        String redisKey = applId + "|" + className + "." + methodName;
 
         Object obj = redisUtil.get(redisKey);
-
-        if(obj!=null){
-            LOGGER.info("**********从Redis中查到了数据**********");
-            LOGGER.info("Redis的KEY值:"+redisKey);
-            LOGGER.info("REDIS的VALUE值:"+obj.toString());
+        if (obj != null) {
+            String val = JSONArray.toJSONString(obj);
+            System.out.println("obj:" + val);
             return obj;
         }
-        long endTime = System.currentTimeMillis();
-        LOGGER.info("Redis缓存AOP处理所用时间:"+(endTime-startTime));
-        LOGGER.info("**********没有从Redis查到数据**********");
-        try{
+        try {
             obj = joinPoint.proceed();
-        }catch(Throwable e){
+        } catch (Throwable e) {
             e.printStackTrace();
         }
-        LOGGER.info("**********开始从MySQL查询数据**********");
-        //后置：将数据库查到的数据保存到Redis
-        Boolean code = redisUtil.set(redisKey,obj);
-        if(code){
-            LOGGER.info("**********数据成功保存到Redis缓存!!!**********");
-            LOGGER.info("Redis的KEY值:"+redisKey);
-            LOGGER.info("REDIS的VALUE值:"+obj.toString());
-        }
+        redisUtil.set(redisKey, obj);
         return obj;
+    }
+
+    /**
+     * 获取目标方法的返回值类型
+     *
+     * @param joinPoint
+     * @return
+     */
+    private Class getReturnType(ProceedingJoinPoint joinPoint) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        return signature.getReturnType();
     }
 }

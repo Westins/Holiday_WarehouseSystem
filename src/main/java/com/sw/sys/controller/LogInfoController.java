@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sw.sys.common.DataGridView;
 import com.sw.sys.common.ResultObj;
 import com.sw.sys.pojo.LogInfo;
-import com.sw.sys.service.impl.LogInfoServiceImpl;
+import com.sw.sys.service.LogInfoService;
 import com.sw.sys.vo.LogInfoVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,21 @@ import java.util.Collection;
 
 /**
  * @description: 登录日志 控制器
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/11 16:57
  */
 @RestController
 @RequestMapping(value = "/LogInfo")
 public class LogInfoController {
 
+    /**
+     * 登录日志接口 注入
+     */
     @Autowired
-    private LogInfoServiceImpl logInfoServiceImpl;
+    private LogInfoService LogInfoService;
 
     /**
-     * 加载所有 登录日志信息
+     * 加载所有 登录日志信息 and 查询
      *
      * @param logInfoVo
      * @return
@@ -38,21 +41,21 @@ public class LogInfoController {
     @RequestMapping(value = "/loadAllLogInfo")
     public DataGridView loadAllLogInfo(LogInfoVo logInfoVo) {
         QueryWrapper<LogInfo> wrapper = new QueryWrapper<>();
-        // 模糊查询 loginName
+        // 模糊查询 登录名
         wrapper.like(StringUtils.isNotBlank(logInfoVo.getLoginName()), "loginName", logInfoVo.getLoginName());
-        // 模糊查询 loginIp
+        // 模糊查询 登录IP地址
         wrapper.like(StringUtils.isNotBlank(logInfoVo.getLoginName()), "loginIp", logInfoVo.getLoginIp());
         // 起初时间
         wrapper.ge(logInfoVo.getStartTime() != null, "loginTime", logInfoVo.getStartTime());
         // 结束时间
         wrapper.le(logInfoVo.getEndTime() != null, "loginTime", logInfoVo.getEndTime());
-        // 时间倒序查询
+        // 时间降序
         wrapper.orderByDesc("loginTime");
         // 分页查询
         IPage<LogInfo> page = new Page<>(logInfoVo.getPage(), logInfoVo.getLimit());
 
 
-        this.logInfoServiceImpl.page(page, wrapper);
+        this.LogInfoService.page(page, wrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
@@ -63,10 +66,10 @@ public class LogInfoController {
      * @param id
      * @return
      */
-    @RequestMapping("/deleteLogInfo")
-    public ResultObj deleteLogInfo(Integer id) {
+    @RequestMapping(value = "/delLogInfo")
+    public ResultObj delLogInfo(Integer id) {
         try {
-            this.logInfoServiceImpl.removeById(id);
+            this.LogInfoService.removeById(id);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,14 +84,14 @@ public class LogInfoController {
      * @param loginfoVo
      * @return
      */
-    @RequestMapping("/batchDeleteLogInfo")
+    @RequestMapping(value = "/batchDeleteLogInfo")
     public ResultObj batchDeleteLogInfo(LogInfoVo loginfoVo) {
         try {
-            Collection<Serializable> idList=new ArrayList<Serializable>();
+            Collection<Serializable> idList=new ArrayList<>();
             for (Integer id : loginfoVo.getIds()) {
                 idList.add(id);
             }
-            this.logInfoServiceImpl.removeByIds(idList);
+            this.LogInfoService.removeByIds(idList);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @description: 树节点
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/11 14:20
  */
 
@@ -48,6 +48,13 @@ public class TreeNode {
     /**
      * 首页左边导航器
      * 构造器
+     *
+     * @param id
+     * @param pid
+     * @param title
+     * @param icon
+     * @param href
+     * @param spread
      */
     public TreeNode(Integer id, Integer pid, String title, String icon, String href, Boolean spread) {
         this.id = id;
@@ -60,8 +67,12 @@ public class TreeNode {
 
     /**
      * 部门管理
-     * 树结构
      * 构造器
+     *
+     * @param id
+     * @param pid
+     * @param title
+     * @param spread
      */
     public TreeNode(Integer id, Integer pid, String title, Boolean spread) {
         this.id = id;
@@ -70,6 +81,13 @@ public class TreeNode {
         this.spread = spread;
     }
 
+    /**
+     * @param id
+     * @param pid
+     * @param title
+     * @param spread
+     * @param checkArr
+     */
     public TreeNode(Integer id, Integer pid, String title, Boolean spread, String checkArr) {
         this.id = id;
         this.pid = pid;

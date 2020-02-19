@@ -10,8 +10,8 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * @description:
- * @author: sw
+ * @description: 角色 实体类
+ * @author: 单威
  * @time: 2020/2/16 14:54
  */
 @Data

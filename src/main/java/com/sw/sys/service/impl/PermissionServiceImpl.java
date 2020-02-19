@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 
 /**
- * @description:
- * @author: sw
+ * @description: 菜单 业务实现类
+ * @author: 单威
  * @time: 2020/2/14 16:37
  */
 @Service
@@ -20,10 +20,8 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Override
     public boolean removeById(Serializable id) {
-
-        PermissionMapper permissionMapper  = this.getBaseMapper();
-        permissionMapper.deletePermissionRole(id);
-
+        //根据权限或菜单ID删除权限表各和角色的关系表里面的数据
+        this.getBaseMapper().deletePermissionRole(id);
         return super.removeById(id);
     }
 }

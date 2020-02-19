@@ -7,7 +7,7 @@ import com.sw.sys.common.DataGridView;
 import com.sw.sys.common.ResultObj;
 import com.sw.sys.common.TreeNode;
 import com.sw.sys.pojo.Dept;
-import com.sw.sys.service.impl.DeptServiceImpl;
+import com.sw.sys.service.DeptService;
 import com.sw.sys.vo.DeptVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,26 +20,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @description:
- * @author: sw
+ * @description: 部门管理 控制器
+ * @author: 单威
  * @time: 2020/2/14 10:30
  */
 @RestController
 @RequestMapping(value = "/dept")
 public class DeptController {
 
+    /**
+     * 部门Service 注入
+     */
     @Autowired
-    private DeptServiceImpl deptServiceImpl;
+    private DeptService deptService;
 
     /**
      * 加载左边树结构参数
      *
-     * @param deptVo
      * @return
      */
     @RequestMapping(value = "/loadLeftTree")
-    public DataGridView loadLeftTree(DeptVo deptVo) {
-        List<Dept> deptList = this.deptServiceImpl.list();
+    public DataGridView loadLeftTree() {
+        List<Dept> deptList = this.deptService.list();
         List<TreeNode> treeNodeList = new ArrayList<>();
         for (Dept dept : deptList) {
             Boolean spread = dept.getOpen() == 1 ? true : false;
@@ -69,7 +71,7 @@ public class DeptController {
 
         IPage<Dept> page = new Page<>(deptVo.getPage(), deptVo.getLimit());
 
-        this.deptServiceImpl.page(page, wrapper);
+        this.deptService.page(page, wrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
@@ -82,7 +84,7 @@ public class DeptController {
     @RequestMapping(value = "/saveDept")
     public ResultObj saveDept(DeptVo deptVo) {
         try {
-            this.deptServiceImpl.save(deptVo);
+            this.deptService.save(deptVo);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,12 +102,12 @@ public class DeptController {
         Map<String, Object> map = new HashMap<String, Object>();
 
         QueryWrapper<Dept> wrapper = new QueryWrapper();
-        wrapper.orderByAsc("ordernum");
+        wrapper.orderByAsc("orderNum");
         IPage<Dept> page = new Page<>(1, 1);
 
-        List<Dept> deptList = this.deptServiceImpl.page(page, wrapper).getRecords();
+        List<Dept> deptList = this.deptService.page(page, wrapper).getRecords();
         if (deptList.size() > 0) {
-            map.put("value", deptList.get(0).getOrdernum() + 1);
+            map.put("value", deptList.get(0).getOrderNum() + 1);
         } else {
             map.put("value", 1);
         }
@@ -124,7 +126,7 @@ public class DeptController {
         QueryWrapper<Dept> wrapper = new QueryWrapper();
         wrapper.eq("pid", deptVo.getId());
 
-        List<Dept> deptList = this.deptServiceImpl.list(wrapper);
+        List<Dept> deptList = this.deptService.list(wrapper);
         if (deptList.size() > 0) {
             map.put("value", true);
         } else {
@@ -142,7 +144,7 @@ public class DeptController {
     @RequestMapping(value = "/delDept")
     public ResultObj delDept(DeptVo deptVo) {
         try {
-            this.deptServiceImpl.removeById(deptVo.getId());
+            this.deptService.removeById(deptVo.getId());
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,7 +161,7 @@ public class DeptController {
     @RequestMapping(value = "/updDept")
     public ResultObj updDept(DeptVo deptVo) {
         try {
-            this.deptServiceImpl.updateById(deptVo);
+            this.deptService.updateById(deptVo);
             return ResultObj.UPDATE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

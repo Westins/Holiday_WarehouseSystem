@@ -12,8 +12,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @description:
- * @author: sw
+ * @description: 部门 实体类
+ * @author: 单威
  * @time: 2020/2/14 10:21
  */
 @Data
@@ -46,9 +46,9 @@ public class Dept implements Serializable {
     /**
      * 排序码【为了调事显示顺序】
      */
-    private Integer ordernum;
+    private Integer orderNum;
 
-    private Date createtime;
+    private Date createTime;
 
 
 }

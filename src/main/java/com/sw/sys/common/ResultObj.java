@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @description:  返回结果
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/10 14:52
  */
 @Data
@@ -19,7 +19,8 @@ public class ResultObj {
      */
     public static final ResultObj LOGIN_SUCCESS = new ResultObj(Constant.SUCCESS,"登陆成功！");
     public static final ResultObj LOGIN_ERROR_CODE = new ResultObj(Constant.ERROR,"验证码错误！");
-    public static final ResultObj LOGIN_ERROR_INFO = new ResultObj(Constant.ERROR,"账号或密码错误！");
+    public static final ResultObj LOGIN_ERROR_ID_NOT_EXIST = new ResultObj(Constant.ERROR,"账号不存在！");
+    public static final ResultObj LOGIN_ERROR_PASSWORD = new ResultObj(Constant.ERROR,"密码错误！");
 
     /**
      * 删除状态码
@@ -41,5 +42,4 @@ public class ResultObj {
 
     private Integer Code;
     private String msg;
-
 }

@@ -8,8 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * @description:
- * @author: sw
+ * @description: 登录日志Vo
+ * @author: 单威
  * @time: 2020/2/11 12:00
  */
 @Data

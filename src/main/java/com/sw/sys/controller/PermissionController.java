@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sw.sys.common.*;
 import com.sw.sys.pojo.Permission;
-import com.sw.sys.service.impl.PermissionServiceImpl;
+import com.sw.sys.service.PermissionService;
 import com.sw.sys.vo.PermissionVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +18,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @description:
- * @author: sw
+ * @description: 菜单权限 控制器
+ * @author: 单威
  * @time: 2020/2/14 16:40
  */
 @RestController
 @RequestMapping(value = "/permission")
 public class PermissionController {
+
+    /**
+     * 菜单权限Service 注入
+     */
     @Autowired
-    private PermissionServiceImpl permissionServiceImpl;
+    private PermissionService permissionService;
 
     /**
      * 加载左边树结构参数
      *
-     * @param permissionVo
      * @return
      */
     @RequestMapping(value = "/loadPermissionLeftTree")
-    public DataGridView loadPermissionLeftTree(PermissionVo permissionVo) {
+    public DataGridView loadPermissionLeftTree() {
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type", Constant.TYPE_MENU);
-        List<Permission> list = this.permissionServiceImpl.list(queryWrapper);
+        List<Permission> list = this.permissionService.list(queryWrapper);
         List<TreeNode> treeNodes = new ArrayList<>();
         for (Permission Permission : list) {
             Boolean spread = Permission.getOpen() == 1 ? true : false;
@@ -66,7 +69,7 @@ public class PermissionController {
 
         IPage<Permission> page = new Page<>(permissionVo.getPage(), permissionVo.getLimit());
 
-        this.permissionServiceImpl.page(page, wrapper);
+        this.permissionService.page(page, wrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
@@ -79,7 +82,7 @@ public class PermissionController {
     @RequestMapping(value = "/savePermission")
     public ResultObj savePermission(PermissionVo permissionVo) {
         try {
-            this.permissionServiceImpl.save(permissionVo);
+            this.permissionService.save(permissionVo);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +103,7 @@ public class PermissionController {
         wrapper.orderByDesc("orderNum");
         IPage<Permission> page = new Page<>(1, 1);
 
-        List<Permission> permissionList = this.permissionServiceImpl.page(page, wrapper).getRecords();
+        List<Permission> permissionList = this.permissionService.page(page, wrapper).getRecords();
         System.out.println("ListData:" + permissionList.toString());
         if (permissionList.size() > 0) {
             map.put("value", permissionList.get(0).getOrderNum() + 1);
@@ -119,7 +122,7 @@ public class PermissionController {
     @RequestMapping(value = "/delPermission")
     public ResultObj delPermission(PermissionVo permissionVo) {
         try {
-            this.permissionServiceImpl.removeById(permissionVo.getId());
+            this.permissionService.removeById(permissionVo.getId());
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,7 +139,7 @@ public class PermissionController {
     @RequestMapping(value = "/updPermission")
     public ResultObj updPermission(PermissionVo permissionVo) {
         try {
-            this.permissionServiceImpl.updateById(permissionVo);
+            this.permissionService.updateById(permissionVo);
             return ResultObj.UPDATE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

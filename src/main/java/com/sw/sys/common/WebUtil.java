@@ -1,6 +1,5 @@
 package com.sw.sys.common;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -11,7 +10,7 @@ import java.net.UnknownHostException;
 
 /**
  * @description: Web工具类
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/10 15:11
  */
 public class WebUtil {

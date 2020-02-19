@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * @description:
- * @author: sw
+ * @description: 用户Active
+ * @author: 单威
  * @time: 2020/2/10 10:31
  */
 @Data

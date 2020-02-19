@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sw.sys.common.*;
 import com.sw.sys.pojo.Permission;
 import com.sw.sys.pojo.User;
-import com.sw.sys.service.impl.PermissionServiceImpl;
+import com.sw.sys.service.PermissionService;
 import com.sw.sys.vo.PermissionVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @description: 菜单管理前端控制器
- * @author: sw
+ * @description: 菜单管理  控制器
+ * @author: 单威
  * @time: 2020/2/11 11:54
  */
 @RestController
@@ -28,7 +28,7 @@ import java.util.Map;
 public class MenuController {
 
     @Autowired
-    private PermissionServiceImpl permissionServiceImpl;
+    private PermissionService permissionService;
 
     @RequestMapping(value = "/loadIndexLeftMenuJson")
     public DataGridView loadIndexLeftMenuJson(PermissionVo permissionVo) {
@@ -41,9 +41,9 @@ public class MenuController {
         User user = (User) WebUtil.getSession().getAttribute("user");
         List<Permission> permissionList = null;
         if (user.getType() == Constant.USER_TYPE_SUPER) { // 如果登陆者为超级管理员
-            permissionList = permissionServiceImpl.list(wrapper);
+            permissionList = permissionService.list(wrapper);
         } else {                                          // 登录者为普通用户
-            permissionList = permissionServiceImpl.list(wrapper);
+            permissionList = permissionService.list(wrapper);
         }
         List<TreeNode> treeNodeList = new ArrayList<TreeNode>();
 
@@ -71,7 +71,7 @@ public class MenuController {
     public DataGridView loadMenuLeftTree() {
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type", Constant.TYPE_MENU);
-        List<Permission> list = this.permissionServiceImpl.list(queryWrapper);
+        List<Permission> list = this.permissionService.list(queryWrapper);
         List<TreeNode> treeNodes = new ArrayList<>();
         for (Permission menu : list) {
             Boolean spread = menu.getOpen() == 1 ? true : false;
@@ -99,7 +99,7 @@ public class MenuController {
 
         IPage<Permission> page = new Page<>(permissionVo.getPage(), permissionVo.getLimit());
 
-        this.permissionServiceImpl.page(page, wrapper);
+        this.permissionService.page(page, wrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
@@ -112,7 +112,7 @@ public class MenuController {
     @RequestMapping(value = "/savePermission")
     public ResultObj savePermission(PermissionVo permissionVo) {
         try {
-            this.permissionServiceImpl.save(permissionVo);
+            this.permissionService.save(permissionVo);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,7 +133,7 @@ public class MenuController {
         wrapper.orderByDesc("orderNum");
         IPage<Permission> page = new Page<>(1, 1);
 
-        List<Permission> permissionList = this.permissionServiceImpl.page(page, wrapper).getRecords();
+        List<Permission> permissionList = this.permissionService.page(page, wrapper).getRecords();
         System.out.println("ListData:" + permissionList.toString());
         if (permissionList.size() > 0) {
             map.put("value", permissionList.get(0).getOrderNum() + 1);
@@ -156,7 +156,7 @@ public class MenuController {
         QueryWrapper<Permission> wrapper = new QueryWrapper();
         wrapper.eq("pid", permissionVo.getId());
 
-        List<Permission> permissionList = this.permissionServiceImpl.list(wrapper);
+        List<Permission> permissionList = this.permissionService.list(wrapper);
         if (permissionList.size() > 0) {
             map.put("value", true);
         } else {
@@ -174,7 +174,7 @@ public class MenuController {
     @RequestMapping(value = "/delMenu")
     public ResultObj delMenu(PermissionVo permissionVo) {
         try {
-            this.permissionServiceImpl.removeById(permissionVo.getId());
+            this.permissionService.removeById(permissionVo.getId());
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,7 +191,7 @@ public class MenuController {
     @RequestMapping(value = "/updMenu")
     public ResultObj updMenu(PermissionVo permissionVo) {
         try {
-            this.permissionServiceImpl.updateById(permissionVo);
+            this.permissionService.updateById(permissionVo);
             return ResultObj.UPDATE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

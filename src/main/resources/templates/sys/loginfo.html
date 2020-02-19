@@ -142,7 +142,7 @@
 		function deleteInfo(data){
 			layer.confirm('你确定要删除这条数据吗?', {icon: 3, title:'提示'}, function(index){
 				var ids = data.id;
-				$.post("/LogInfo/deleteLogInfo",{id:data.id},function(res){
+				$.post("/LogInfo/delLogInfo",{id:data.id},function(res){
 					if(res.code==1){
 						tableIns.reload();
 					}

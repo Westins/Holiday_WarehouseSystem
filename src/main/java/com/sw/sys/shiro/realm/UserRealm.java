@@ -37,12 +37,14 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("对象："+userServiceImpl.getClass().getSimpleName());
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 获取登陆账号
         queryWrapper.eq("loginName", authenticationToken.getPrincipal().toString());
+        // 查询账号是否存在
         User user = userServiceImpl.getOne(queryWrapper);
         if (user != null) {
             ActiveUser activeUser = new ActiveUser();
+            // 登陆者记录到action
             activeUser.setUser(user);
             ByteSource credentialsSalt = ByteSource.Util.bytes(user.getSalt());
             SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(activeUser, user.getPwd(), credentialsSalt, this.getName());

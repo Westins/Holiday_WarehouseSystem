@@ -41,10 +41,9 @@ shiro:
   hash-iterations: 2
   anon-urls:
     - /resources/**
-    - /user/**
-    - /LogInfo/**
+    - /login/login
   login-url: /sys/login
-  log-out-url: /user/logout
+  log-out-url: /login/logout
   authc-ulrs:
     - /**
 server:

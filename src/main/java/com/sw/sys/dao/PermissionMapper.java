@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import java.io.Serializable;
 
 /**
- * @description:
- * @author: sw
+ * @description: 菜单  数据访问层
+ * @author: 单威
  * @time: 2020/2/11 11:27
  */
 public interface PermissionMapper extends BaseMapper<Permission> {

@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @description:
- * @author: sw
+ * @description: 系统公告实体类
+ * @author: 单威
  * @time: 2020/2/11 16:58
  */
 @Data

@@ -9,8 +9,8 @@ import com.sw.sys.common.ResultObj;
 import com.sw.sys.common.TreeNode;
 import com.sw.sys.pojo.Permission;
 import com.sw.sys.pojo.Role;
-import com.sw.sys.service.impl.PermissionServiceImpl;
-import com.sw.sys.service.impl.RoleServiceImpl;
+import com.sw.sys.service.PermissionService;
+import com.sw.sys.service.RoleService;
 import com.sw.sys.vo.RoleVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +22,33 @@ import java.util.List;
 import java.util.Date;
 
 /**
- * @description:
- * @author: sw
+ * @description: 角色 控制器
+ * @author: 单威
  * @time: 2020/2/16 14:56
  */
 @RestController
 @RequestMapping(value = "/role")
 public class RoleController {
 
+    /**
+     * 角色Service 注入
+     */
     @Autowired
-    private RoleServiceImpl roleServiceImpl;
+    private RoleService roleService;
 
+    /**
+     * 菜单权限Service 注入
+     */
     @Autowired
-    private PermissionServiceImpl permissionServiceImpl;
+    private PermissionService permissionService;
 
+
+    /**
+     * 加载全部可用角色 --查询
+     *
+     * @param roleVo
+     * @return
+     */
     @RequestMapping(value = "/loadAllRole")
     public DataGridView loadAllLogInfo(RoleVo roleVo) {
         QueryWrapper<Role> wrapper = new QueryWrapper<>();
@@ -47,12 +60,12 @@ public class RoleController {
         IPage<Role> page = new Page<>(roleVo.getPage(), roleVo.getLimit());
 
 
-        this.roleServiceImpl.page(page, wrapper);
+        this.roleService.page(page, wrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
     /**
-     * 添加
+     * 添加角色
      *
      * @param roleVo
      * @return
@@ -61,7 +74,7 @@ public class RoleController {
     public ResultObj saveRole(RoleVo roleVo) {
         try {
             roleVo.setCreateTime(new Date());
-            this.roleServiceImpl.save(roleVo);
+            this.roleService.save(roleVo);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +84,7 @@ public class RoleController {
     }
 
     /**
-     * 修改
+     * 修改角色
      *
      * @param roleVo
      * @return
@@ -79,7 +92,7 @@ public class RoleController {
     @RequestMapping(value = "/updRole")
     public ResultObj updRole(RoleVo roleVo) {
         try {
-            this.roleServiceImpl.updateById(roleVo);
+            this.roleService.updateById(roleVo);
             return ResultObj.UPDATE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,7 +101,7 @@ public class RoleController {
     }
 
     /**
-     * 删除
+     * 删除角色
      *
      * @param id
      * @return
@@ -96,10 +109,7 @@ public class RoleController {
     @RequestMapping(value = "/delRole")
     public ResultObj delRole(Integer id) {
         try {
-            if (id == null) {
-                return new ResultObj(-1, "ID为NULL");
-            }
-            this.roleServiceImpl.removeById(id);
+            this.roleService.removeById(id);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,16 +130,16 @@ public class RoleController {
          */
         QueryWrapper<Permission> wrapper = new QueryWrapper();
         wrapper.eq("available", Constant.AVAILABLE_TRUE);
-        List<Permission> allPermissionList = this.permissionServiceImpl.list(wrapper);
+        List<Permission> allPermissionList = this.permissionService.list(wrapper);
         /**
          * 1.根据角色ID查询当前角色拥有的权限或菜单ID
          * 2.根据查询出来的菜单ID查询权限和菜单数据
          */
-        List<Integer> rolePermissionList = this.roleServiceImpl.getRolePermissionByRid(roleId);
+        List<Integer> rolePermissionList = this.roleService.getRolePermissionByRid(roleId);
         List<Permission> PermissionList = null;
         if (rolePermissionList.size() > 0) { // 如果有ID才查
             wrapper.in("id", rolePermissionList);
-            PermissionList = this.permissionServiceImpl.list(wrapper);
+            PermissionList = this.permissionService.list(wrapper);
         } else {
             PermissionList = new ArrayList<>();
         }
@@ -138,7 +148,7 @@ public class RoleController {
          * 构造权力树
          */
         List<TreeNode> nodeList = new ArrayList<>();
-        System.out.println("长度:"+PermissionList.size());
+        System.out.println("长度:" + PermissionList.size());
         for (Permission p1 : allPermissionList) {
             String check = "0";
             for (Permission p2 : PermissionList) {
@@ -162,7 +172,7 @@ public class RoleController {
     @RequestMapping(value = "/saveRolePermission")
     public ResultObj saveRolePermission(Integer rid, Integer[] ids) {
         try {
-            this.roleServiceImpl.saveRolePermission(rid, ids);
+            this.roleService.saveRolePermission(rid, ids);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
