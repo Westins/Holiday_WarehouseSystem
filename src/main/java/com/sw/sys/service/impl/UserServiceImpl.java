@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * @description:
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/10 10:16
  */
 @Service
@@ -22,9 +22,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private RoleMapper roleMapper;
-
-    @Autowired
-    private RoleServiceImpl roleServiceImpl;
 
     @Override
     public boolean removeById(Serializable id) {
