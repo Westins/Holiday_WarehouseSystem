@@ -45,4 +45,9 @@ public interface Constant {
      * 用户默认密码
      */
     public static final String USER_DEFAULT_PWD = "123456";
+
+    /**
+     * 商品默认图片
+     */
+    public static final String DEFAULT_GOODS_IMG = "/resources/images/default.jpg";
 }

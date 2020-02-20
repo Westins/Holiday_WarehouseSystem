@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.sw.sys.dao"})
+@MapperScan(basePackages = {"com.sw.*.dao"})
 public class HolidayDemoApplication {
 
     public static void main(String[] args) {
