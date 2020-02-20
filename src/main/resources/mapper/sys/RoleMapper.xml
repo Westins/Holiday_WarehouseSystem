@@ -26,7 +26,7 @@
         SELECT pid
         FROM sys_role_permission
         WHERE
-        rid = #{id}
+        rid = #{roleId}
     </select>
 
     <!-- 保存角色和菜单权限之间的关系 -->

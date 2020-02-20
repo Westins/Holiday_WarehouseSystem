@@ -70,7 +70,6 @@ public class DeptController {
         wrapper.orderByAsc("pid");
 
         IPage<Dept> page = new Page<>(deptVo.getPage(), deptVo.getLimit());
-
         this.deptService.page(page, wrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }

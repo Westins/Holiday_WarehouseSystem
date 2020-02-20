@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * @description: 元注解 用来标识查询数据库的方法
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/14 14:53
  */
 @Documented
