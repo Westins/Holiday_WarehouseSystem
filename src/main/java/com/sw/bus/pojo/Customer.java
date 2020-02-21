@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @description: 客户 实体类
  * @author: 单威
@@ -18,7 +20,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("bus_customer")
 @ToString
-public class Customer {
+public class Customer implements Serializable {
 
     private static final long serialVersionUID=1L;
 

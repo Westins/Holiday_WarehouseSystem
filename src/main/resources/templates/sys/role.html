@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 <meta charset="UTF-8">
 <title>角色管理</title>
@@ -20,7 +21,7 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">
   <legend>查询条件</legend>
 </fieldset>
-<blockquote class="layui-elem-quote">
+<blockquote class="layui-elem-quote" shiro:hasPermission="role:view">
 	<form action="" method="post" id="searchFrm" lay-filter="searchFrm" class="layui-form layui-form-pane">
 		<div class="layui-form-item">
 		    <div class="layui-inline">
@@ -58,13 +59,13 @@
 <div>
 	<table class="layui-hide" id="roleTable" lay-filter="roleTable"></table>
 	<div id="roleToolBar" style="display: none;">
-		<button type="button" lay-event="add" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-add-1"></span>添加角色</button>
+		<button type="button" lay-event="add" shiro:hasPermission="notice:create" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-add-1"></span>添加角色</button>
 	</div>
 	
 	<div id="roleRowBar" style="display: none;">
-		<button type="button" lay-event="update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>更新</button>
-		<button type="button" lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
-		<button type="button" lay-event="selectPermission" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>分配权限</button>
+		<button type="button" lay-event="update" shiro:hasPermission="notice:update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>更新</button>
+		<button type="button" lay-event="delete" shiro:hasPermission="notice:delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
+		<button type="button" lay-event="selectPermission" shiro:hasPermission="role:selectPermission" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>分配权限</button>
 	</div>
 </div>
 

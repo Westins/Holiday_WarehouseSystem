@@ -23,8 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @description:
- * @author: sw
+ * @description: shiro 配置类
+ * @author: 单威
  * @time: 2020/2/10 11:24
  */
 @Configuration

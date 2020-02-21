@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * @description: 用户实体类
- * @author: sw
+ * @author: 单威
  * @time: 2020/2/10 10:32
  */
 @Data

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 <meta charset="UTF-8">
 <title>商品管理</title>
@@ -19,7 +20,7 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">
   <legend>查询条件</legend>
 </fieldset>
-<blockquote class="layui-elem-quote">
+<blockquote class="layui-elem-quote" shiro:hasPermission="goods:view">
 	<form action="" method="post" id="searchFrm" lay-filter="searchFrm" class="layui-form layui-form-pane">
 		<div class="layui-form-item">
 		   <div class="layui-inline">
@@ -78,13 +79,13 @@
 <div>
 	<table class="layui-hide" id="goodsTable" lay-filter="goodsTable"></table>
 	<div id="goodsToolBar" style="display: none;">
-		<button type="button" lay-event="add" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-add-1"></span>添加商品</button>
-		<button type="button" lay-event="batchDelete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>批量删除</button>
+		<button type="button" lay-event="add" shiro:hasPermission="goods:create" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-add-1"></span>添加商品</button>
+		<button type="button" lay-event="batchDelete" shiro:hasPermission="goods:delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>批量删除</button>
 	</div>
 
 	<div id="goodsRowBar" style="display: none;">
-		<button type="button" lay-event="update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>更新</button>
-		<button type="button" lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
+		<button type="button" lay-event="update" shiro:hasPermission="goods:update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>更新</button>
+		<button type="button" lay-event="delete" shiro:hasPermission="goods:delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
 	</div>
 </div>
 
@@ -99,7 +100,7 @@
 					<div class="layui-form-item magt3">
 						<label class="layui-form-label">供应商</label>
 						<div class="layui-input-block">
-							 <select name="providerId" id="providerId">
+							 <select name="providerId" id="providerId" lay-verify="required">
 			         			<option value="0">请选择供应商</option>
 			         		</select>
 						</div>
@@ -215,6 +216,9 @@ layui.use(['jquery','form','table','layer','upload'],function(){
 		    ,cols: [ [
 				 {type:'checkbox',align:'center'}
 		      ,{field:'id', title:'ID',align:'center' ,width:'80'}
+		      ,{field:'goodsImg', title:'商品图片',align:'center',width:'100', templet:function(d){
+						 return '<img width=40 height=40 src=/file/showImageByPath?path='+d.goodsImg+ ' />';
+					 }}
 		      ,{field:'goodsName', title:'商品名称',align:'center',width:'150'}
 		      ,{field:'providerName', title:'供应商',align:'center',width:'120'}
 		      ,{field:'producePlace', title:'产地',align:'center',width:'120'}
@@ -227,9 +231,6 @@ layui.use(['jquery','form','table','layer','upload'],function(){
 		      ,{field:'number', title:'库存量',align:'center',width:'100'}
 		      ,{field:'dangerNum', title:'预警库存',align:'center',width:'100'}
 		      ,{field:'time', title:'入库时间',align:'center',width:'100'}
-		      ,{field:'goodsImg', title:'商品图片',align:'center',width:'100', templet:function(d){
-		    	  return '<img width=40 height=40 src=/file/showImageByPath?path='+d.goodsImg+ ' />';
-		      }}
 		      ,{field:'available', title:'是否可用',align:'center',width:'100',templet:function(d){
 		    	  return d.available==1?'<font color=blue>可用</font>':'<font color=red>不可用</font>';
 		      }}
@@ -355,6 +356,7 @@ layui.use(['jquery','form','table','layer','upload'],function(){
 		}
 
 		form.on("submit(doSubmit)",function(data){
+			console.log("data:"+JSON.stringify(data))
 			  $.post(url,data.field,function(res){
 					if(res.code==1){
 						tableIns.reload();

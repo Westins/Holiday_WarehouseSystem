@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 <meta charset="UTF-8">
 <title>菜单管理--右边列表</title>
@@ -10,7 +11,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="icon" href="/resources/favicon.ico">
 <link rel="stylesheet" href="/resources/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="/resources/css/public.css" media="all" />
 <link rel="stylesheet" href="/resources/layui_ext/dtree/dtree.css" media="all" />
@@ -22,7 +22,7 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">
   <legend>查询条件</legend>
 </fieldset>
-<blockquote class="layui-elem-quote">
+<blockquote class="layui-elem-quote" shiro:hasPermission="menu:view">
 	<form action="" method="post" id="searchFrm" lay-filter="searchFrm" class="layui-form layui-form-pane">
 		<div class="layui-form-item">
 		    <div class="layui-inline">
@@ -45,12 +45,12 @@
 <div>
 	<table class="layui-hide" id="menuTable" lay-filter="menuTable"></table>
 	<div id="menuToolBar" style="display: none;">
-		<button type="button" lay-event="add" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-add-1"></span>添加菜单</button>
+		<button type="button" lay-event="add" shiro:hasPermission="menu:create" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-add-1"></span>添加菜单</button>
 	</div>
 	
 	<div id="menuRowBar" style="display: none;">
-		<button type="button" lay-event="update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>更新</button>
-		<button type="button" lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
+		<button type="button" lay-event="update" shiro:hasPermission="menu:update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>更新</button>
+		<button type="button" lay-event="delete" shiro:hasPermission="menu:delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
 	</div>
 </div>
 

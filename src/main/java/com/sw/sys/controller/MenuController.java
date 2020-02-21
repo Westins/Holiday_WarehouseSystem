@@ -7,16 +7,15 @@ import com.sw.sys.common.*;
 import com.sw.sys.pojo.Permission;
 import com.sw.sys.pojo.User;
 import com.sw.sys.service.PermissionService;
+import com.sw.sys.service.RoleService;
+import com.sw.sys.service.UserService;
 import com.sw.sys.vo.PermissionVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @description: 菜单管理  控制器
@@ -30,6 +29,12 @@ public class MenuController {
     @Autowired
     private PermissionService permissionService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
     @RequestMapping(value = "/loadIndexLeftMenuJson")
     public DataGridView loadIndexLeftMenuJson(PermissionVo permissionVo) {
         // 查询菜单
@@ -42,10 +47,25 @@ public class MenuController {
         List<Permission> permissionList = null;
         if (user.getType() == Constant.USER_TYPE_SUPER) { // 如果登陆者为超级管理员
             permissionList = permissionService.list(wrapper);
-        } else {                                          // 登录者为普通用户
-            permissionList = permissionService.list(wrapper);
+        } else {// 登录者为普通用户
+            // 获取用户ID
+            Integer uid = user.getId();
+            // 获取用户身份
+            List<Integer> userRoleList = roleService.queryUserRoleIdsByUid(uid);
+            // 根据用户身份 查询对应权限和菜单ID
+            Set<Integer> pidSet = new HashSet<>();
+            for (Integer rid : userRoleList) {
+                List<Integer> pidList = roleService.getRolePermissionByRid(rid);
+                pidSet.addAll(pidList);
+            }
+            if (pidSet.size() > 0) { // 有权限
+                wrapper.in("id", pidSet);
+                permissionList = permissionService.list(wrapper);
+            } else {  //没有任何权限
+                permissionList = new ArrayList<>();
+            }
         }
-        List<TreeNode> treeNodeList = new ArrayList<TreeNode>();
+        List<TreeNode> treeNodeList = new ArrayList<>();
 
         for (Permission permission : permissionList) {
             Integer id = permission.getId();
@@ -112,6 +132,7 @@ public class MenuController {
     @RequestMapping(value = "/savePermission")
     public ResultObj savePermission(PermissionVo permissionVo) {
         try {
+            permissionVo.setType(Constant.TYPE_MENU);
             this.permissionService.save(permissionVo);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {

@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -14,50 +13,39 @@ import java.util.Date;
 
 /**
  * @author ：单威
- * @description： 商品 实体类
- * @date ：Created in 2020/2/20 10:29
+ * @description： 退货 实体类
+ * @date ：Created in 2020/2/21 11:40
  */
-
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("bus_goods")
-@ToString
-public class Goods implements Serializable {
+@TableName("bus_export")
+public class Export implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String goodsName;
+    private Integer providerId;
 
-    private String producePlace;
+    private String payType;
 
-    private String size;
+    private Date outputTime;
 
-    private String goodsPackage;
+    private String operatePerson;
 
-    private String productCode;
-
-    private String approvalCode;
-
-    private String description;
-
-    private Double price;
+    private Double exportPrice;
 
     private Integer number;
 
-    private Integer dangerNum;
+    private String remark;
 
-    private String goodsImg;
-
-    private Integer available;
-
-    private Integer providerId;
-
-    private Date time;
+    private Integer goodsId;
 
     @TableField(exist = false)
     private String providerName;
-
+    @TableField(exist = false)
+    private String goodsName;
+    @TableField(exist = false)
+    private String size;
 }

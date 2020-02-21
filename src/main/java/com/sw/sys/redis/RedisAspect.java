@@ -1,11 +1,8 @@
 package com.sw.sys.redis;
 
-
-import com.alibaba.fastjson.JSONArray;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * @description:
+ * @description: redis 切面
  * @author: 单威
  * @time: 2020/2/14 15:15
  */

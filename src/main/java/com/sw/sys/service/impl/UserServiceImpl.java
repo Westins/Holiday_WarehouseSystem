@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 
 /**
- * @description:
+ * @description: 用户 业务实现类
  * @author: 单威
  * @time: 2020/2/10 10:16
  */

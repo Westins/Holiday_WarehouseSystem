@@ -61,7 +61,7 @@ public class PermissionController {
 
         QueryWrapper<Permission> wrapper = new QueryWrapper();
 
-        wrapper.eq("type",Constant.TYPE_PERMISSION); // 只能查询权限
+        wrapper.eq("type", Constant.TYPE_PERMISSION); // 只能查询权限
         wrapper.like(StringUtils.isNotBlank(permissionVo.getTitle()), "title", permissionVo.getTitle());
         wrapper.like(StringUtils.isNotBlank(permissionVo.getPerCode()), "perCode", permissionVo.getPerCode());
         wrapper.eq(permissionVo.getId() != null, "pid", permissionVo.getId());
@@ -82,6 +82,7 @@ public class PermissionController {
     @RequestMapping(value = "/savePermission")
     public ResultObj savePermission(PermissionVo permissionVo) {
         try {
+            permissionVo.setType(Constant.TYPE_PERMISSION);
             this.permissionService.save(permissionVo);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {

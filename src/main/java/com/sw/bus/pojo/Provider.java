@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @author ：单威
  * @description： 供应商 实体类
@@ -18,7 +20,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("bus_provider")
 @ToString
-public class Provider {
+public class Provider implements Serializable {
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)

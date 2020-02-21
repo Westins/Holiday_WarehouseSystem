@@ -9,7 +9,9 @@ import com.sw.bus.service.GoodsService;
 import com.sw.bus.service.ProviderService;
 import com.sw.bus.vo.CustomerVo;
 import com.sw.bus.vo.GoodsVo;
+import com.sw.sys.common.Constant;
 import com.sw.sys.common.DataGridView;
+import com.sw.sys.common.FileObjectUtil;
 import com.sw.sys.common.ResultObj;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +102,16 @@ public class GoodsController {
     @RequestMapping(value = "/updGoods")
     public ResultObj updGoods(GoodsVo goodsVo) {
         try {
+            //说明是不默认图片
+            if (!(goodsVo.getGoodsImg() != null && goodsVo.getGoodsImg().equals(Constant.DEFAULT_GOODS_IMG))) {
+                if (goodsVo.getGoodsImg().endsWith("_temp")) {
+                    String newName = FileObjectUtil.renameFile(goodsVo.getGoodsImg());
+                    goodsVo.setGoodsImg(newName);
+                    //删除原先的图片
+                    String oldPath = this.goodsService.getById(goodsVo.getId()).getGoodsImg();
+                    FileObjectUtil.removeFileByPath(oldPath);
+                }
+            }
             this.goodsService.updateById(goodsVo);
             return ResultObj.UPDATE_SUCCESS;
         } catch (Exception e) {
@@ -116,8 +128,9 @@ public class GoodsController {
      * @return
      */
     @RequestMapping(value = "/delGoods")
-    public ResultObj delGoods(Integer id) {
+    public ResultObj delGoods(Integer id, String goodsImg) {
         try {
+            FileObjectUtil.removeFileByPath(goodsImg);
             this.goodsService.removeById(id);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
@@ -146,5 +159,26 @@ public class GoodsController {
             e.printStackTrace();
             return ResultObj.DELETE_ERROR;
         }
+    }
+
+    /**
+     * 根据供应商ID 加载商品信息
+     *
+     * @param providerId
+     * @return
+     */
+    @RequestMapping(value = "/loadGoodsByProviderId")
+    public DataGridView loadGoodsByProviderId(Integer providerId) {
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("available", Constant.AVAILABLE_TRUE);
+        queryWrapper.eq(providerId != null, "providerId", providerId);
+        List<Goods> list = this.goodsService.list(queryWrapper);
+        for (Goods goods : list) {
+            Provider provider = this.providerService.getById(goods.getProviderId());
+            if (null != provider) {
+                goods.setProviderName(provider.getProviderName());
+            }
+        }
+        return new DataGridView(list);
     }
 }
