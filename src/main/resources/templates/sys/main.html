@@ -12,24 +12,225 @@
 	<link rel="stylesheet" href="/resources/layui/css/layui.css" media="all" />
 	<link rel="stylesheet" href="/resources/css/public.css" media="all" />
 </head>
-<body class="childrenBody">
+<body class="childrenBody" style="background: #F8F8F8">
 	<blockquote class="layui-elem-quote layui-bg-green">
 		<div id="nowTime"></div>
 	</blockquote>
-	<div class="layui-row layui-col-space10">
-		<div class="layui-col-lg6 layui-col-md12">
-			<blockquote class="layui-elem-quote title">最新文章 <i class="layui-icon layui-red">&#xe756;</i></blockquote>
-			<table class="layui-table mag0" lay-skin="line">
-				<colgroup>
-					<col>
-					<col width="110">
-				</colgroup>
-				<tbody class="hot_news"></tbody>
-			</table>
+	<div class="layui-row" style="width: 100%;height:90%">
+		<div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 60%">
+			<div class="layui-card-header">商品信息</div>
+			<div class="grid-demo " style="height: 137px">
+				<div class="layui-col-xs6 " style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
+					<h5 style="margin: 15px;color:#3F3F3F">今日进货</h5>
+					<h1 style="color: #499c54;margin-left: 15px" id="importNumber">10</h1>
+				</div>
+				<div class="layui-col-xs6 " style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
+					<h5 style="margin: 15px;color: #3F3F3F">今日退货</h5>
+					<h1 style="color: #499c54;margin-left: 15px" id="exportNumber">20</h1>
+				</div>
+			</div>
+		</div>
+		<div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 60%">
+			<div class="layui-card-header">系统公告</div>
+			<div class="grid-demo"  style="width: 100%;height: 137px">
+				<ul class="layui-timeline" id="noticeUl"></ul>
+			</div>
+		</div>
+		<div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 60%">
+			<div class="layui-card-header">最近登录</div>
+			<div class="grid-demo"  style="width: 100%;height: 137px">
+				<ul class="layui-timeline" id="logInfoUl"></ul>
+			</div>
+		</div>
+		<div class="layui-col-xs6 " style="background: white;border: 8px #F8F8F8 solid;height: 40%">
+			<div class="grid-demo" id="main2" style="width: 100%;height: 280px;border: 8px #F8F8F8 solid"></div>
+		</div>
+		<div class="layui-col-xs6 " style="background: white;border: 8px #F8F8F8 solid;height: 40%">
+			<div class="grid-demo" style="width: 100%;height: 134px;border: 8px #F8F8F8 solid" id="importDiv">
+			</div>
+			<div class="grid-demo" style="width: 100%;height: 134px;border: 8px #F8F8F8 solid" id="exportDiv">
+			</div>
 		</div>
 	</div>
-
 	<script type="text/javascript" src="/resources/layui/layui.js"></script>
 	<script type="text/javascript" src="/resources/js/main.js"></script>
+	<script type="text/javascript" src="/resources/js/echarts.min.js"></script>
+	<script>
+		// 基于准备好的dom，初始化echarts实例
+		var importDiv = echarts.init(document.getElementById('importDiv'));
+		var exportDiv = echarts.init(document.getElementById('exportDiv'));
+		var myChart2 = echarts.init(document.getElementById('main2'));
+
+		// 指定图表的配置项和数据
+		var importDemo = {
+			title: {
+				text: '商品进货图',
+				subtext: '',
+				left: 'center'
+			},
+			tooltip: {
+				trigger: 'item',
+				formatter: '{a} <br/>{b} : {c} ({d}%)'
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+			},
+			series: [
+				{
+					name: '访问来源',
+					type: 'pie',
+					radius: '55%',
+					center: ['50%', '60%'],
+					data: [
+						{value: 335, name: '直接访问'},
+						{value: 310, name: '邮件营销'},
+						{value: 234, name: '联盟广告'},
+						{value: 135, name: '视频广告'},
+						{value: 1548, name: '搜索引擎'}
+					],
+					emphasis: {
+						itemStyle: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		var exportDemo = {
+			title: {
+				text: '商品退货图',
+				subtext: '',
+				left: 'center'
+			},
+			tooltip: {
+				trigger: 'item',
+				formatter: '{a} <br/>{b} : {c} ({d}%)'
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+				data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+			},
+			series: [
+				{
+					name: '访问来源',
+					type: 'pie',
+					radius: '55%',
+					center: ['50%', '60%'],
+					data: [
+						{value: 335, name: '直接访问'},
+						{value: 310, name: '邮件营销'},
+						{value: 234, name: '联盟广告'},
+						{value: 135, name: '视频广告'},
+						{value: 1548, name: '搜索引擎'}
+					],
+					emphasis: {
+						itemStyle: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		var option2 = {
+			title: {
+				text: '进货退货折线图'
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['邮件营销', '联盟广告']
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [
+				{
+					name: '邮件营销',
+					type: 'line',
+					data: [100, 200, 300, 400, 500, 600, 700]
+				},
+				{
+					name: '联盟广告',
+					type: 'line',
+					data: [150, 250, 350, 450, 550, 650, 750]
+				}
+			]
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		importDiv.setOption(importDemo);
+		exportDiv.setOption(exportDemo);
+		myChart2.setOption(option2);
+
+		// ---------------------------------  数据初始化 -------------------------------------
+
+		layui.use(['jquery','form','table','layer','laydate'],function() {
+			var $ = layui.jquery;
+			var form = layui.form;
+			var table = layui.table;
+			var layer = layui.layer;
+			var laydate = layui.laydate;
+
+			//--- 加载最近登录数据
+			$.get("/main/loadMainLogInfo",function (obj) {
+				var data = obj.data;
+				if(data != null){
+					var html = "";
+					var ul = $("#logInfoUl");
+					$.each(data,function(index,item){
+						html+='<li class="layui-timeline-item">\n' +
+								'\t\t\t\t\t\t<i class="layui-icon layui-timeline-axis"></i>\n' +
+								'\t\t\t\t\t\t<div class="layui-timeline-content layui-text">\n' +
+								'\t\t\t\t\t\t\t<div class="layui-timeline-title">'+item.loginName+'|'+item.loginTime+'</div>\n' +
+								'\t\t\t\t\t\t</div>\n' +
+								'\t\t\t\t\t</li>'
+					});
+					ul.html(html);
+				}
+			});
+			// --- 加载最近系统公告
+			$.get("/main/loadMainNotice",function (obj) {
+				var data = obj.data;
+				if(data != null){
+					var html = "";
+					var ul = $("#noticeUl");
+					$.each(data,function(index,item){
+						html+='<li class="layui-timeline-item">\n' +
+								'\t\t\t\t\t\t<i class="layui-icon layui-timeline-axis"></i>\n' +
+								'\t\t\t\t\t\t<div class="layui-timeline-content layui-text">\n' +
+								'\t\t\t\t\t\t\t<div class="layui-timeline-title">'+item.title+'|'+item.createTime+'</div>\n' +
+								'\t\t\t\t\t\t</div>\n' +
+								'\t\t\t\t\t</li>'
+					});
+					ul.html(html);
+				}
+			});
+
+			// -- 加载今日进货数量 、今日退货数量
+			$.get("/main/loadImportExportByNow",function (obj) {
+				$("#exportNumber").html(obj.exportNumber);
+				$("#importNumber").html(obj.importNumber);
+			});
+
+		});
+	</script>
 </body>
 </html>

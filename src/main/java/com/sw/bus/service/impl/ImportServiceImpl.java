@@ -62,4 +62,9 @@ public class ImportServiceImpl extends ServiceImpl<ImportMapper, Import> impleme
         this.goodsMapper.updateById(goods);
         return super.removeById(id);
     }
+
+    @Override
+    public Integer loadImportByNow() {
+        return this.baseMapper.loadImportByNow();
+    }
 }

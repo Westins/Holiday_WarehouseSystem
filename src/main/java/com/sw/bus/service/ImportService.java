@@ -9,4 +9,5 @@ import com.sw.bus.pojo.Import;
  * @date ：Created in 2020/2/21 9:50
  */
 public interface ImportService extends IService<Import> {
+    Integer loadImportByNow();
 }

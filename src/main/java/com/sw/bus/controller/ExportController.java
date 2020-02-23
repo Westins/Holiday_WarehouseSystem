@@ -58,11 +58,11 @@ public class ExportController {
         QueryWrapper<Export> wrapper = new QueryWrapper<>();
         wrapper.eq(exportVo.getProviderId() != null && exportVo.getProviderId() != 0, "providerId", exportVo.getProviderId());
         wrapper.eq(exportVo.getGoodsId() != null && exportVo.getGoodsId() != 0, "goodsId", exportVo.getGoodsId());
-        wrapper.ge(exportVo.getStartTime() != null, "outputTime", exportVo.getStartTime());
-        wrapper.le(exportVo.getEndTime() != null, "outputTime", exportVo.getEndTime());
+        wrapper.ge(exportVo.getStartTime() != null, "exportTime", exportVo.getStartTime());
+        wrapper.le(exportVo.getEndTime() != null, "exportTime", exportVo.getEndTime());
         wrapper.like(StringUtils.isNotBlank(exportVo.getOperatePerson()), "operatePerson", exportVo.getOperatePerson());
         wrapper.like(StringUtils.isNotBlank(exportVo.getRemark()), "remark", exportVo.getRemark());
-        wrapper.orderByDesc("outputTime");
+        wrapper.orderByDesc("exportTime");
         this.exportService.page(page, wrapper);
         List<Export> records = page.getRecords();
         for (Export ex : records) {

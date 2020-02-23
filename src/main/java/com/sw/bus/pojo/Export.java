@@ -30,7 +30,7 @@ public class Export implements Serializable {
 
     private String payType;
 
-    private Date outputTime;
+    private Date exportTime;
 
     private String operatePerson;
 

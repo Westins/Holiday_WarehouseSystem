@@ -3,6 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sw.bus.dao">
+<mapper namespace="com.sw.bus.dao.ExportMapper">
+    <!-- 查询每月退货数量 -->
+    <select id="loadExportByMonth" resultType="Integer">
+      SELECT
+      SUM(number) AS number,
+      DATE_FORMAT(exportTime,'%Y%m') months
+      FROM
+      bus_export
+      GROUP BY
+      months
+    </select>
 
+    <!-- 查询今日退货数量 -->
+    <select id="loadExportByNow" resultType="Integer">
+        SELECT
+        IFNULL(SUM(number),0) AS number
+        FROM bus_export
+        WHERE
+        TO_DAYS(exportTime) = TO_DAYS(NOW())
+    </select>
 </mapper>

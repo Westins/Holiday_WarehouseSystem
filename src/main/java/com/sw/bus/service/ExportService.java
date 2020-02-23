@@ -16,4 +16,6 @@ public interface ExportService extends IService<Export> {
      * @param remark  备注
      */
     void addExPort(Integer id, Integer number, String remark);
+
+    Integer loadExportByNow();
 }

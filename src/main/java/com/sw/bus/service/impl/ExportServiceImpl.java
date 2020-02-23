@@ -46,10 +46,15 @@ public class ExportServiceImpl extends ServiceImpl<ExportMapper, Export> impleme
         User user = (User) WebUtil.getSession().getAttribute("user");
         entity.setOperatePerson(user.getName());
         entity.setExportPrice(im.getImportPrice());
-        entity.setOutputTime(new Date());
+        entity.setExportTime(new Date());
         entity.setPayType(im.getPayType());
         entity.setProviderId(im.getProviderId());
         entity.setRemark(remark);
         this.getBaseMapper().insert(entity);
+    }
+
+    @Override
+    public Integer loadExportByNow() {
+        return this.baseMapper.loadExportByNow();
     }
 }
