@@ -32,7 +32,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/goods")
 public class GoodsController {
-
     /**
      * 商品Service 注入
      */
@@ -104,7 +103,7 @@ public class GoodsController {
         try {
             //说明是不默认图片
             if (!(goodsVo.getGoodsImg() != null && goodsVo.getGoodsImg().equals(Constant.DEFAULT_GOODS_IMG))) {
-                if (goodsVo.getGoodsImg().endsWith("_temp")) {
+                if (goodsVo.getGoodsImg().endsWith(Constant.IMP_SUFFIX)) {
                     String newName = FileObjectUtil.renameFile(goodsVo.getGoodsImg());
                     goodsVo.setGoodsImg(newName);
                     //删除原先的图片

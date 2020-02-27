@@ -36,9 +36,12 @@ public class ShiroAutoConfiguration {
 
     private static final String SHIRO_DIALECT = "shiroDialect";
     private static final String SHIRO_FILTER = "shiroFilter";
-    private String hashAlgorithmName = "MD5";// 加密方式
-    private int hashIterations = 2;// 散列次数
-    private String loginUrl = "/templates/sys/login";// 默认的登陆页面
+    // 加密方式
+    private String hashAlgorithmName = "MD5";
+    // 散列次数
+    private int hashIterations = 2;
+    // 默认的登陆页面
+    private String loginUrl = "/templates/sys/login";
 
     private String[] anonUrls;
     private String logOutUrl;
@@ -87,7 +90,7 @@ public class ShiroAutoConfiguration {
         factoryBean.setSecurityManager(securityManager);
         // 设置未登陆的时要跳转的页面
         factoryBean.setLoginUrl(loginUrl);
-        Map<String, String> filterChainDefinitionMap = new HashMap<>();
+        Map<String, String> filterChainDefinitionMap = new HashMap<>(16);
         // 设置放行的路径
         if (anonUrls != null && anonUrls.length > 0) {
             for (String anon : anonUrls) {
@@ -104,8 +107,7 @@ public class ShiroAutoConfiguration {
                 filterChainDefinitionMap.put(authc, "authc");
             }
         }
-        Map<String, Filter> filters=new HashMap<>();
-//		filters.put("authc", new ShiroLoginFilter());
+        Map<String, Filter> filters=new HashMap<>(16);
         //配置过滤器
         factoryBean.setFilters(filters);
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

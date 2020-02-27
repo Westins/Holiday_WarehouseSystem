@@ -30,7 +30,7 @@ public class LogInfoController {
      * 登录日志接口 注入
      */
     @Autowired
-    private LogInfoService LogInfoService;
+    private LogInfoService logInfoService;
 
     /**
      * 加载所有 登录日志信息 and 查询
@@ -55,7 +55,7 @@ public class LogInfoController {
         IPage<LogInfo> page = new Page<>(logInfoVo.getPage(), logInfoVo.getLimit());
 
 
-        this.LogInfoService.page(page, wrapper);
+        this.logInfoService.page(page, wrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
 
@@ -69,7 +69,7 @@ public class LogInfoController {
     @RequestMapping(value = "/delLogInfo")
     public ResultObj delLogInfo(Integer id) {
         try {
-            this.LogInfoService.removeById(id);
+            this.logInfoService.removeById(id);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class LogInfoController {
             for (Integer id : loginfoVo.getIds()) {
                 idList.add(id);
             }
-            this.LogInfoService.removeByIds(idList);
+            this.logInfoService.removeByIds(idList);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @time: 2020/2/10 10:16
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
 
 }

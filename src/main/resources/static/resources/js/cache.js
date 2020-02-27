@@ -137,9 +137,9 @@ layui.use(['form','jquery',"layer"],function() {
                                     '</div>'+
                                 '</div>'+
                                 '<div class="layui-form-item">'+
-                                    '<label class="layui-form-label">Tab切换刷新</label>'+
+                                    '<label class="layui-form-label">刷新</label>'+
                                     '<div class="layui-input-block">'+
-                                        '<input type="checkbox" name="changeRefresh" lay-skin="switch" lay-text="开|关">'+
+                                        '<input type="checkbox" name="changeRefresh" lay-skin="switch" lay-text="开|关" checked>'+
                                         '<div class="layui-word-aux">开启后切换窗口刷新当前页面</div>'+
                                     '</div>'+
                                 '</div>'+

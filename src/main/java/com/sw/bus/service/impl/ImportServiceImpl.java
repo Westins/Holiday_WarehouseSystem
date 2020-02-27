@@ -3,14 +3,17 @@ package com.sw.bus.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sw.bus.dao.GoodsMapper;
 import com.sw.bus.dao.ImportMapper;
+import com.sw.sys.common.DataView;
 import com.sw.bus.pojo.Goods;
 import com.sw.bus.pojo.Import;
 import com.sw.bus.service.ImportService;
+import com.sw.sys.common.Proportion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author ：单威
@@ -18,7 +21,7 @@ import java.io.Serializable;
  * @date ：Created in 2020/2/21 9:50
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ImportServiceImpl extends ServiceImpl<ImportMapper, Import> implements ImportService {
 
     /**
@@ -66,5 +69,15 @@ public class ImportServiceImpl extends ServiceImpl<ImportMapper, Import> impleme
     @Override
     public Integer loadImportByNow() {
         return this.baseMapper.loadImportByNow();
+    }
+
+    @Override
+    public List<DataView> loadImportByYear() {
+        return this.getBaseMapper().loadImportByYear();
+    }
+
+    @Override
+    public List<Proportion> loadImportByGoods() {
+        return this.baseMapper.loadImportByGoods();
     }
 }

@@ -43,9 +43,9 @@ public class PermissionController {
         queryWrapper.eq("type", Constant.TYPE_MENU);
         List<Permission> list = this.permissionService.list(queryWrapper);
         List<TreeNode> treeNodes = new ArrayList<>();
-        for (Permission Permission : list) {
-            Boolean spread = Permission.getOpen() == 1 ? true : false;
-            treeNodes.add(new TreeNode(Permission.getId(), Permission.getPid(), Permission.getTitle(), spread));
+        for (Permission permission : list) {
+            Boolean spread = permission.getOpen() == 1 ? true : false;
+            treeNodes.add(new TreeNode(permission.getId(), permission.getPid(), permission.getTitle(), spread));
         }
         return new DataGridView(treeNodes);
     }
@@ -61,7 +61,8 @@ public class PermissionController {
 
         QueryWrapper<Permission> wrapper = new QueryWrapper();
 
-        wrapper.eq("type", Constant.TYPE_PERMISSION); // 只能查询权限
+        // 只能查询权限
+        wrapper.eq("type", Constant.TYPE_PERMISSION);
         wrapper.like(StringUtils.isNotBlank(permissionVo.getTitle()), "title", permissionVo.getTitle());
         wrapper.like(StringUtils.isNotBlank(permissionVo.getPerCode()), "perCode", permissionVo.getPerCode());
         wrapper.eq(permissionVo.getId() != null, "pid", permissionVo.getId());
@@ -98,7 +99,7 @@ public class PermissionController {
      */
     @RequestMapping(value = "/loadPermissionMaxOrderNum")
     public Map<String, Object> loadPermissionMaxOrderNum() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
 
         QueryWrapper<Permission> wrapper = new QueryWrapper();
         wrapper.orderByDesc("orderNum");

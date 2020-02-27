@@ -40,6 +40,6 @@ public class ResultObj {
     public static final ResultObj UPDATE_SUCCESS = new ResultObj(Constant.SUCCESS,"修改成功！");
     public static final ResultObj UPDATE_ERROR = new ResultObj(Constant.ERROR,"修改失败！");
 
-    private Integer Code;
+    private Integer code;
     private String msg;
 }

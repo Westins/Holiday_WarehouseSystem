@@ -52,142 +52,20 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="time" >
 	<script type="text/javascript" src="/resources/layui/layui.js"></script>
 	<script type="text/javascript" src="/resources/js/main.js"></script>
 	<script type="text/javascript" src="/resources/js/echarts.min.js"></script>
 	<script>
-		// 基于准备好的dom，初始化echarts实例
-		var importDiv = echarts.init(document.getElementById('importDiv'));
-		var exportDiv = echarts.init(document.getElementById('exportDiv'));
-		var myChart2 = echarts.init(document.getElementById('main2'));
-
-		// 指定图表的配置项和数据
-		var importDemo = {
-			title: {
-				text: '商品进货图',
-				subtext: '',
-				left: 'center'
-			},
-			tooltip: {
-				trigger: 'item',
-				formatter: '{a} <br/>{b} : {c} ({d}%)'
-			},
-			legend: {
-				orient: 'vertical',
-				left: 'left',
-				data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-			},
-			series: [
-				{
-					name: '访问来源',
-					type: 'pie',
-					radius: '55%',
-					center: ['50%', '60%'],
-					data: [
-						{value: 335, name: '直接访问'},
-						{value: 310, name: '邮件营销'},
-						{value: 234, name: '联盟广告'},
-						{value: 135, name: '视频广告'},
-						{value: 1548, name: '搜索引擎'}
-					],
-					emphasis: {
-						itemStyle: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-		};
-		var exportDemo = {
-			title: {
-				text: '商品退货图',
-				subtext: '',
-				left: 'center'
-			},
-			tooltip: {
-				trigger: 'item',
-				formatter: '{a} <br/>{b} : {c} ({d}%)'
-			},
-			legend: {
-				orient: 'vertical',
-				left: 'left',
-				data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-			},
-			series: [
-				{
-					name: '访问来源',
-					type: 'pie',
-					radius: '55%',
-					center: ['50%', '60%'],
-					data: [
-						{value: 335, name: '直接访问'},
-						{value: 310, name: '邮件营销'},
-						{value: 234, name: '联盟广告'},
-						{value: 135, name: '视频广告'},
-						{value: 1548, name: '搜索引擎'}
-					],
-					emphasis: {
-						itemStyle: {
-							shadowBlur: 10,
-							shadowOffsetX: 0,
-							shadowColor: 'rgba(0, 0, 0, 0.5)'
-						}
-					}
-				}
-			]
-		};
-		var option2 = {
-			title: {
-				text: '进货退货折线图'
-			},
-			tooltip: {
-				trigger: 'axis'
-			},
-			legend: {
-				data: ['邮件营销', '联盟广告']
-			},
-			grid: {
-				left: '3%',
-				right: '4%',
-				bottom: '3%',
-				containLabel: true
-			},
-			xAxis: {
-				type: 'category',
-				boundaryGap: false,
-				data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-			},
-			yAxis: {
-				type: 'value'
-			},
-			series: [
-				{
-					name: '邮件营销',
-					type: 'line',
-					data: [100, 200, 300, 400, 500, 600, 700]
-				},
-				{
-					name: '联盟广告',
-					type: 'line',
-					data: [150, 250, 350, 450, 550, 650, 750]
-				}
-			]
-		};
-		// 使用刚指定的配置项和数据显示图表。
-		importDiv.setOption(importDemo);
-		exportDiv.setOption(exportDemo);
-		myChart2.setOption(option2);
-
 		// ---------------------------------  数据初始化 -------------------------------------
 
 		layui.use(['jquery','form','table','layer','laydate'],function() {
 			var $ = layui.jquery;
-			var form = layui.form;
-			var table = layui.table;
-			var layer = layui.layer;
-			var laydate = layui.laydate;
+
+			// 基于准备好的dom，初始化echarts实例
+			var importDiv = echarts.init(document.getElementById('importDiv'));
+			var exportDiv = echarts.init(document.getElementById('exportDiv'));
+			var myChart2 = echarts.init(document.getElementById('main2'));
 
 			//--- 加载最近登录数据
 			$.get("/main/loadMainLogInfo",function (obj) {
@@ -229,7 +107,130 @@
 				$("#exportNumber").html(obj.exportNumber);
 				$("#importNumber").html(obj.importNumber);
 			});
+			var data = null;
+			$.ajax({
+				type:"GET",
+				url:"/main/loadImportExportByYear",
+				async:false,
+				success:function (obj) {
+					console.log("obj:"+JSON.stringify(obj));
+					console.log("obj.importNumber:"+JSON.stringify(obj.importNumber));
+					console.log("obj.exportNumber:"+JSON.stringify(obj.exportNumber));
+					console.log("obj.time:"+JSON.stringify(obj.time));
+					data = obj;
+				}
+			});
+			var exportImportData = null;
+			$.ajax({
+				type:"GET",
+				url:"/main/loadExportImportByProportion",
+				async:false,
+				success:function (obj) {
+					console.log("obj:"+JSON.stringify(obj));
+					exportImportData = obj;
+				}
+			});
+			// 指定图表的配置项和数据
+			var importDemo = {
+				title: {
+					text: '商品进货占比',
+					subtext: '',
+					left: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: '{a} <br/>{b} : {c} ({d}%)'
+				},
+				legend: {
+					orient: 'vertical',
+					left: 'left',
+					data: exportImportData.importList.name
+				},
+				series: [
+					{
+						name: '商品进货',
+						type: 'pie',
+						radius: '55%',
+						center: ['50%', '60%'],
+						data: exportImportData.importList,
+						emphasis: {
+							itemStyle: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}
+				]
+			};
+			var exportDemo = {
+				title: {
+					text: '商品退货占比',
+					subtext: '',
+					left: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: '{a} <br/>{b} : {c} ({d}%)'
+				},
+				legend: {
+					orient: 'vertical',
+					left: 'left',
+					data: exportImportData.exportList.name
+				},
+				series: [
+					{
+						name: '商品退货',
+						type: 'pie',
+						radius: '55%',
+						center: ['50%', '60%'],
+						data: exportImportData.exportList,
+						emphasis: {
+							itemStyle: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}
+				]
+			};
+			var option2 = {
+				title: {
+					text: '近一年进退货情况'
+				},
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					data: ['进货', '退货']
+				},
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					data: data.time
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [
+					{
+						name: '进货',
+						type: 'line',
+						data: data.importNumber
+					},
+					{
+						name: '退货',
+						type: 'line',
+						data: data.exportNumber
+					}
+				]
+			};
 
+			// 使用刚指定的配置项和数据显示图表。
+			importDiv.setOption(importDemo);
+			exportDiv.setOption(exportDemo);
+			myChart2.setOption(option2);
 		});
 	</script>
 </body>

@@ -1,7 +1,9 @@
 package com.sw.bus.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.sw.sys.common.DataView;
 import com.sw.bus.pojo.Export;
+import com.sw.sys.common.Proportion;
 
 import java.util.List;
 
@@ -12,7 +14,21 @@ import java.util.List;
  */
 public interface ExportMapper extends BaseMapper<Export> {
 
-    List<Integer> loadExportByMonth();
+    /**
+     *  查询近期一年退货数据
+     * @return
+     */
+    List<DataView> loadExportByYear();
 
+    /**
+     * 查询今日退货数据
+     * @return
+     */
     Integer loadExportByNow();
+
+    /**
+     * 查询退货中的商品信息
+     * @return
+     */
+    List<Proportion> loadExportByGoods();
 }

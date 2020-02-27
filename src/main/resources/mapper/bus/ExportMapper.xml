@@ -4,15 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sw.bus.dao.ExportMapper">
-    <!-- 查询每月退货数量 -->
-    <select id="loadExportByMonth" resultType="Integer">
-      SELECT
-      SUM(number) AS number,
-      DATE_FORMAT(exportTime,'%Y%m') months
-      FROM
-      bus_export
-      GROUP BY
-      months
+
+    <!-- 查询近一年的退货数量 -->
+    <select id="loadExportByYear" resultType="com.sw.sys.common.DataView">
+     SELECT
+     SUM(number) AS numberByYear,
+     DATE_FORMAT(exportTime,'%Y-%m') timeByYear
+     FROM
+     bus_export
+     WHERE
+     exportTime>DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+     GROUP BY
+     timeByYear
     </select>
 
     <!-- 查询今日退货数量 -->
@@ -22,5 +25,15 @@
         FROM bus_export
         WHERE
         TO_DAYS(exportTime) = TO_DAYS(NOW())
+    </select>
+
+    <select id="loadExportByGoods" resultType="com.sw.sys.common.Proportion">
+        SELECT
+        SUM(ex.number) AS value,
+        gs.goodsName AS name
+        FROM bus_export ex
+        LEFT JOIN bus_goods gs
+        ON ex.goodsId = gs.id
+        GROUP BY ex.goodsId
     </select>
 </mapper>

@@ -47,5 +47,5 @@ public class Import implements Serializable {
     @TableField(exist = false)
     private String goodsName;
     @TableField(exist = false)
-    private String size;//规格
+    private String size;
 }

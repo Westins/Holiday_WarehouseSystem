@@ -16,7 +16,7 @@ import java.util.List;
  * @time: 2020/2/16 14:57
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
 
@@ -32,6 +32,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     /**
      * 根据角色ID查询当前角色拥有的所有的权限或菜单ID
      */
+    @Override
     public List<Integer> getRolePermissionByRid(Integer roleId) {
         return this.baseMapper.getRolePermissionByRid(roleId);
     }

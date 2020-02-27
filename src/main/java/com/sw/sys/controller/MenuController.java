@@ -45,7 +45,8 @@ public class MenuController {
 
         User user = (User) WebUtil.getSession().getAttribute("user");
         List<Permission> permissionList = null;
-        if (user.getType() == Constant.USER_TYPE_SUPER) { // 如果登陆者为超级管理员
+        // 如果登陆者为超级管理员
+        if (user.getType().equals(Constant.USER_TYPE_SUPER)) {
             permissionList = permissionService.list(wrapper);
         } else {// 登录者为普通用户
             // 获取用户ID
@@ -58,7 +59,8 @@ public class MenuController {
                 List<Integer> pidList = roleService.getRolePermissionByRid(rid);
                 pidSet.addAll(pidList);
             }
-            if (pidSet.size() > 0) { // 有权限
+            // 有权限
+            if (pidSet.size() > 0) {
                 wrapper.in("id", pidSet);
                 permissionList = permissionService.list(wrapper);
             } else {  //没有任何权限
@@ -73,7 +75,7 @@ public class MenuController {
             String title = permission.getTitle();
             String icon = permission.getIcon();
             String href = permission.getHref();
-            Boolean spread = permission.getOpen() == Constant.OPEN_TRUE ? true : false;
+            Boolean spread = permission.getOpen().equals(Constant.OPEN_TRUE) ? true : false;
             treeNodeList.add(new TreeNode(id, pid, title, icon, href, spread));
         }
         // 构造 层级关系
@@ -148,7 +150,7 @@ public class MenuController {
      */
     @RequestMapping(value = "/loadMenuMaxOrderNum")
     public Map<String, Object> loadMenuMaxOrderNum() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
 
         QueryWrapper<Permission> wrapper = new QueryWrapper();
         wrapper.orderByDesc("orderNum");
@@ -173,7 +175,7 @@ public class MenuController {
      */
     @RequestMapping(value = "/queryMenuChildNode")
     public Map<String, Object> queryMenuChildNode(PermissionVo permissionVo) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         QueryWrapper<Permission> wrapper = new QueryWrapper();
         wrapper.eq("pid", permissionVo.getId());
 

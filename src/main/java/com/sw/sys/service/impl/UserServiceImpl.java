@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @time: 2020/2/10 10:16
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
@@ -39,5 +39,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 this.roleMapper.insertUserRole(uid,rid);
             }
         }
+    }
+
+    @Override
+    public boolean updateById(User entity) {
+        return super.updateById(entity);
+    }
+
+    @Override
+    public boolean save(User entity) {
+        return super.save(entity);
+    }
+
+    @Override
+    public User getById(Serializable id) {
+        return super.getById(id);
     }
 }

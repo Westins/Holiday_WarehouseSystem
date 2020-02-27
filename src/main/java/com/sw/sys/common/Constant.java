@@ -50,4 +50,9 @@ public interface Constant {
      * 商品默认图片
      */
     public static final String DEFAULT_GOODS_IMG = "/resources/images/default.jpg";
+
+    /**
+     *  图片上传 自定后缀
+     */
+    public static final String IMP_SUFFIX = "_temp";
 }

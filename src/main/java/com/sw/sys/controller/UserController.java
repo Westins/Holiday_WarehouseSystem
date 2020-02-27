@@ -79,7 +79,6 @@ public class UserController {
                 user.setDeptName(dept.getTitle());
             }
             Integer mgr = user.getMgr();
-            System.out.println("mgr:" + mgr);
             if (mgr != null) {
                 User u = this.userService.getById(mgr);
                 user.setLeaderName(u.getName());
@@ -96,7 +95,7 @@ public class UserController {
     @RequestMapping(value = "/loadUserMaxOrderNum")
     @ResponseBody
     public Map<String, Object> loadUserMaxOrderNum() {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(16);
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("orderNum");
@@ -147,11 +146,13 @@ public class UserController {
     @RequestMapping(value = "/saveUser")
     public ResultObj saveUser(UserVo userVo) {
         try {
-            userVo.setType(Constant.USER_TYPE_ORDINARY);//设置类型
+            //设置类型
+            userVo.setType(Constant.USER_TYPE_ORDINARY);
             userVo.setHireDate(new Date());
             String salt = IdUtil.simpleUUID().toUpperCase();
-            userVo.setSalt(salt);//设置盐
-            userVo.setPwd(new Md5Hash(Constant.USER_DEFAULT_PWD, salt, 2).toString());//设置密码
+            userVo.setSalt(salt);
+            //设置密码
+            userVo.setPwd(new Md5Hash(Constant.USER_DEFAULT_PWD, salt, 2).toString());
             this.userService.save(userVo);
             return ResultObj.SAVE_SUCCESS;
         } catch (Exception e) {
@@ -200,8 +201,9 @@ public class UserController {
             User user = new User();
             user.setId(id);
             String salt = IdUtil.simpleUUID().toUpperCase();
-            user.setSalt(salt);//设置盐
-            user.setPwd(new Md5Hash(Constant.USER_DEFAULT_PWD, salt, 2).toString());//设置密码
+            user.setSalt(salt);
+            //设置密码
+            user.setPwd(new Md5Hash(Constant.USER_DEFAULT_PWD, salt, 2).toString());
             this.userService.updateById(user);
             return ResultObj.UPDATE_SUCCESS;
         } catch (Exception e) {
@@ -226,15 +228,16 @@ public class UserController {
         //2,查询当前用户拥有的角色ID集合
         List<Integer> currentUserRoleIds = this.roleService.queryUserRoleIdsByUid(id);
         for (Map<String, Object> map : listMaps) {
-            Boolean LAY_CHECKED = false;
+            Boolean checked = false;
+
             Integer roleId = (Integer) map.get("id");
             for (Integer rid : currentUserRoleIds) {
-                if (rid == roleId) {
-                    LAY_CHECKED = true;
+                if (rid.equals(roleId)) {
+                    checked = true;
                     break;
                 }
             }
-            map.put("LAY_CHECKED", LAY_CHECKED);
+            map.put("LAY_CHECKED", checked);
         }
         return new DataGridView(Long.valueOf(listMaps.size()), listMaps);
     }

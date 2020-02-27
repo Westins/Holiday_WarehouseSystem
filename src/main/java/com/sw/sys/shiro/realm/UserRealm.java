@@ -7,7 +7,7 @@ import com.sw.sys.pojo.Permission;
 import com.sw.sys.pojo.User;
 import com.sw.sys.service.PermissionService;
 import com.sw.sys.service.RoleService;
-import com.sw.sys.service.impl.UserServiceImpl;
+import com.sw.sys.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -32,7 +32,7 @@ import java.util.Set;
 public class UserRealm extends AuthorizingRealm {
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private UserService userService;
 
     @Autowired
     private RoleService roleService;
@@ -57,12 +57,12 @@ public class UserRealm extends AuthorizingRealm {
         // 获取登陆账号
         queryWrapper.eq("loginName", authenticationToken.getPrincipal().toString());
         // 查询账号是否存在
-        User user = userServiceImpl.getOne(queryWrapper);
+        User user = userService.getOne(queryWrapper);
         if (user != null) {
             ActiveUser activeUser = new ActiveUser();
             activeUser.setUser(user);
 
-            //根据用户ID查询percode
+            //根据用户ID查询perCode
             //查询所有菜单
             QueryWrapper<Permission> qw = new QueryWrapper<>();
             //设置只能查询菜单
@@ -111,7 +111,7 @@ public class UserRealm extends AuthorizingRealm {
         ActiveUser activeUser = (ActiveUser) principalCollection.getPrimaryPrincipal();
         User user = activeUser.getUser();
         List<String> permissions = activeUser.getPermissions();
-        if (user.getType() == Constant.USER_TYPE_SUPER) {
+        if (user.getType().equals(Constant.USER_TYPE_SUPER)) {
             authorizationInfo.addStringPermission("*:*");
         } else {
             if (null != permissions && permissions.size() > 0) {

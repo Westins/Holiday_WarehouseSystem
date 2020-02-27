@@ -18,11 +18,11 @@ public class TreeNodeBuilder {
     public static List<TreeNode> build(List<TreeNode> treeNodes, Integer topPid) {
         List<TreeNode> nodes = new ArrayList<>();
         for (TreeNode treeNode1 : treeNodes) {
-            if (treeNode1.getPid() == topPid) {
+            if (treeNode1.getPid().equals(topPid)) {
                 nodes.add(treeNode1);
             }
             for (TreeNode treeNode2 : treeNodes) {
-                if (treeNode1.getId() == treeNode2.getPid()) {
+                if (treeNode1.getId().equals(treeNode2.getPid())) {
                     treeNode1.getChildren().add(treeNode2);
                 }
             }

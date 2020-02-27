@@ -44,7 +44,7 @@ public class Dept implements Serializable {
     private Integer available;
 
     /**
-     * 排序码【为了调事显示顺序】
+     * 排序码【为了调试显示顺序】
      */
     private Integer orderNum;
 

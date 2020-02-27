@@ -3,21 +3,21 @@ package com.sw.sys.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sw.bus.pojo.Export;
+import com.sw.sys.common.DataView;
 import com.sw.bus.service.ExportService;
 import com.sw.bus.service.ImportService;
 import com.sw.sys.common.DataGridView;
+import com.sw.sys.common.Proportion;
+import com.sw.sys.common.TimeUtil;
 import com.sw.sys.pojo.LogInfo;
 import com.sw.sys.pojo.Notice;
 import com.sw.sys.service.LogInfoService;
 import com.sw.sys.service.NoticeService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ：单威
@@ -86,11 +86,76 @@ public class MainController {
      */
     @RequestMapping(value = "/loadImportExportByNow")
     public Map<String, Object> loadImportExportByNow() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         Integer importNumber = this.importService.loadImportByNow();
         Integer exportNumber = this.exportService.loadExportByNow();
         map.put("importNumber", importNumber);
         map.put("exportNumber", exportNumber);
+        return map;
+    }
+
+    /**
+     * 查询 近一年的进退货数量
+     *
+     * @return
+     */
+    @RequestMapping(value = "/loadImportExportByYear")
+    public Map<String, Object> loadImportExportByYear() {
+
+        Map<String, Object> map = new HashMap<>(16);
+
+        // 查询出近一年的进货数据
+        List<DataView> im = this.importService.loadImportByYear();
+        // 查询出近一年的退货数据
+        List<DataView> ex = this.exportService.loadExportByYear();
+
+        List<DataView> importList = TimeUtil.getYearTimeByLate();
+        List<DataView> exportList = TimeUtil.getYearTimeByLate();
+
+        List<String> time = new ArrayList<>();
+        List<Integer> importNumber = new ArrayList<>();
+        List<Integer> exportNumber = new ArrayList<>();
+
+        for (DataView dv : importList) {
+            for (Integer i = 0; i < im.size(); i++) {
+                if (im.get(i).getTimeByYear().equals(dv.getTimeByYear())) {
+                    dv.setNumberByYear(im.get(i).getNumberByYear());
+                }
+            }
+            importNumber.add(dv.getNumberByYear());
+            time.add(dv.getTimeByYear());
+        }
+        for (DataView dv : exportList) {
+            for (Integer i = 0; i < ex.size(); i++) {
+                if (ex.get(i).getTimeByYear().equals(dv.getTimeByYear())) {
+                    dv.setNumberByYear(ex.get(i).getNumberByYear());
+                }
+            }
+            exportNumber.add(dv.getNumberByYear());
+        }
+
+        Collections.reverse(importNumber);
+        Collections.reverse(exportNumber);
+        Collections.reverse(time);
+        map.put("importNumber", importNumber);
+        map.put("exportNumber", exportNumber);
+        map.put("time", time);
+        return map;
+    }
+
+    /**
+     * 查询 进退货
+     * @return
+     */
+    @RequestMapping(value = "/loadExportImportByProportion")
+    public Map<String,Object> loadExportImportByProportion(){
+        Map<String, Object> map = new HashMap<>(16);
+
+        List<Proportion> importList = this.importService.loadImportByGoods();
+        List<Proportion> exportList = this.exportService.loadExportByGoods();
+
+        map.put("importList",importList);
+        map.put("exportList",exportList);
         return map;
     }
 }

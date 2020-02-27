@@ -98,7 +98,7 @@ public class DeptController {
      */
     @RequestMapping(value = "/loadMaxOrderNum")
     public Map<String, Object> loadMaxOrderNum() {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(16);
 
         QueryWrapper<Dept> wrapper = new QueryWrapper();
         wrapper.orderByAsc("orderNum");
@@ -121,7 +121,7 @@ public class DeptController {
      */
     @RequestMapping(value = "/queryChildNode")
     public Map<String, Object> queryChildNode(DeptVo deptVo) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         QueryWrapper<Dept> wrapper = new QueryWrapper();
         wrapper.eq("pid", deptVo.getId());
 

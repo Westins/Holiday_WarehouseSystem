@@ -19,7 +19,7 @@ import java.util.Properties;
  */
 public class FileObjectUtil {
     //文件上传的保存路径
-    public static String UPLOAD_PATH = "F:/upload/";//默认值
+    public static String UPLOAD_PATH = "F:/upload/";
 
     static {
         //读取配置文件的存储地址
@@ -69,8 +69,6 @@ public class FileObjectUtil {
             HttpHeaders header = new HttpHeaders();
             //封装响应内容类型(APPLICATION_OCTET_STREAM 响应的内容不限定)
             header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            //设置下载的文件的名称
-//			header.setContentDispositionFormData("attachment", "123.jpg");
             //创建ResponseEntity对象
             ResponseEntity<Object> entity =
                     new ResponseEntity<Object>(bytes, header, HttpStatus.CREATED);

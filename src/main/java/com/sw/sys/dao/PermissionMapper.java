@@ -13,5 +13,10 @@ import java.io.Serializable;
  */
 public interface PermissionMapper extends BaseMapper<Permission> {
 
+    /**
+     * 根据id 删除角色和权限的关联
+     *
+     * @param id
+     */
     void deletePermissionRole(@Param("id") Serializable id);
 }

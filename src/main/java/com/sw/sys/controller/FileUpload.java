@@ -45,7 +45,7 @@ public class FileUpload {
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>(16);
         map.put("path", dirName + "/" + newName + "_temp");
         return map;
     }

@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @time: 2020/2/14 16:37
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
 
     @Override

@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sw.bus.dao.ExportMapper;
 import com.sw.bus.dao.GoodsMapper;
 import com.sw.bus.dao.ImportMapper;
+import com.sw.sys.common.DataView;
 import com.sw.bus.pojo.Export;
 import com.sw.bus.pojo.Goods;
 import com.sw.bus.pojo.Import;
 import com.sw.bus.service.ExportService;
+import com.sw.sys.common.Proportion;
 import com.sw.sys.common.WebUtil;
 import com.sw.sys.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ：单威
@@ -22,7 +25,7 @@ import java.util.Date;
  * @date ：Created in 2020/2/21 11:48
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ExportServiceImpl extends ServiceImpl<ExportMapper, Export> implements ExportService {
 
     @Autowired
@@ -56,5 +59,15 @@ public class ExportServiceImpl extends ServiceImpl<ExportMapper, Export> impleme
     @Override
     public Integer loadExportByNow() {
         return this.baseMapper.loadExportByNow();
+    }
+
+    @Override
+    public List<DataView> loadExportByYear() {
+       return this.baseMapper.loadExportByYear();
+    }
+
+    @Override
+    public List<Proportion> loadExportByGoods() {
+        return this.baseMapper.loadExportByGoods();
     }
 }

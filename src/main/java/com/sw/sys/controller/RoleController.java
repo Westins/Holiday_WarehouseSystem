@@ -136,23 +136,23 @@ public class RoleController {
          * 2.根据查询出来的菜单ID查询权限和菜单数据
          */
         List<Integer> rolePermissionList = this.roleService.getRolePermissionByRid(roleId);
-        List<Permission> PermissionList = null;
-        if (rolePermissionList.size() > 0) { // 如果有ID才查
+        List<Permission> permissionList = null;
+        // 如果有ID才查
+        if (rolePermissionList.size() > 0) {
             wrapper.in("id", rolePermissionList);
-            PermissionList = this.permissionService.list(wrapper);
+            permissionList = this.permissionService.list(wrapper);
         } else {
-            PermissionList = new ArrayList<>();
+            permissionList = new ArrayList<>();
         }
 
         /**
          * 构造权力树
          */
         List<TreeNode> nodeList = new ArrayList<>();
-        System.out.println("长度:" + PermissionList.size());
         for (Permission p1 : allPermissionList) {
             String check = "0";
-            for (Permission p2 : PermissionList) {
-                if (p1.getId() == p2.getId()) {
+            for (Permission p2 : permissionList) {
+                if (p1.getId().equals(p2.getId())) {
                     check = "1";
                 }
             }

@@ -13,6 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @date ：Created in 2020/2/20 10:14
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ProviderServiceImpl extends ServiceImpl<ProviderMapper, Provider> implements ProviderService {
 }
