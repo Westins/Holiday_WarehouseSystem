@@ -79,7 +79,6 @@ public class ImportController {
                 im.setSize(goods.getSize());
             }
         }
-        System.out.println("dataView:" + records.toString());
         return new DataGridView(page.getTotal(), records);
     }
 

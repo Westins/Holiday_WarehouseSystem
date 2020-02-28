@@ -18,7 +18,6 @@ public class PageController {
 
     @RequestMapping(value = "sys/{path}")
     public String systemPath(@PathVariable String path){
-        System.out.println("systemPath:"+path);
         if(path.isEmpty()){
             path += "index";
         }
@@ -26,7 +25,6 @@ public class PageController {
     }
     @RequestMapping(value = "bus/{path}")
     public String businessPath(@PathVariable String path){
-        System.out.println("businessPath:"+path);
         if(path.isEmpty()){
             path += "index";
         }

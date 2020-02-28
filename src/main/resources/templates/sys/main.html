@@ -113,10 +113,6 @@
 				url:"/main/loadImportExportByYear",
 				async:false,
 				success:function (obj) {
-					console.log("obj:"+JSON.stringify(obj));
-					console.log("obj.importNumber:"+JSON.stringify(obj.importNumber));
-					console.log("obj.exportNumber:"+JSON.stringify(obj.exportNumber));
-					console.log("obj.time:"+JSON.stringify(obj.time));
 					data = obj;
 				}
 			});
@@ -126,7 +122,6 @@
 				url:"/main/loadExportImportByProportion",
 				async:false,
 				success:function (obj) {
-					console.log("obj:"+JSON.stringify(obj));
 					exportImportData = obj;
 				}
 			});

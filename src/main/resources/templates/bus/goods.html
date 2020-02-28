@@ -356,7 +356,6 @@ layui.use(['jquery','form','table','layer','upload'],function(){
 		}
 
 		form.on("submit(doSubmit)",function(data){
-			console.log("data:"+JSON.stringify(data))
 			  $.post(url,data.field,function(res){
 					if(res.code==1){
 						tableIns.reload();

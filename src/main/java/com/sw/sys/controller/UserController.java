@@ -117,7 +117,6 @@ public class UserController {
      */
     @RequestMapping(value = "/loadUsersByDeptId")
     public DataGridView loadUsersByDeptId(Integer deptId) {
-        System.out.println(deptId == null);
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(deptId != null, "deptId", deptId);
         queryWrapper.eq("available", Constant.AVAILABLE_TRUE);

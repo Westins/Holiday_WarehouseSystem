@@ -106,7 +106,6 @@ public class PermissionController {
         IPage<Permission> page = new Page<>(1, 1);
 
         List<Permission> permissionList = this.permissionService.page(page, wrapper).getRecords();
-        System.out.println("ListData:" + permissionList.toString());
         if (permissionList.size() > 0) {
             map.put("value", permissionList.get(0).getOrderNum() + 1);
         } else {
