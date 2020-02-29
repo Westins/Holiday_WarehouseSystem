@@ -1,5 +1,8 @@
 package com.sw.bus.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,6 +26,7 @@ public class SalesBack implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private Integer customerId;
@@ -40,4 +44,16 @@ public class SalesBack implements Serializable {
     private String remark;
 
     private Integer goodsId;
+
+    @TableField(exist = false)
+    private String goodsImg;
+
+    @TableField(exist = false)
+    private String goodsName;
+
+    @TableField(exist = false)
+    private String size;
+
+    @TableField(exist = false)
+    private String customerName;
 }

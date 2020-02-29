@@ -44,8 +44,13 @@ public class Export implements Serializable {
 
     @TableField(exist = false)
     private String providerName;
+
     @TableField(exist = false)
     private String goodsName;
+
     @TableField(exist = false)
     private String size;
+
+    @TableField(exist = false)
+    private String goodsImg;
 }

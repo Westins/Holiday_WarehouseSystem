@@ -176,12 +176,11 @@
 			    <label class="layui-form-label">退货数量</label>
 				<div class="layui-input-block">
 					<input type="hidden" name="id">
-					<input type="hidden" name="currentNumber" id="currentNumber">
-					<input type="text" class="layui-input"  name="number" lay-verify="required|checknumber" placeholder="请输入退货数量">
+					<input type="text" class="layui-input"  name="number" lay-verify="required|number" placeholder="请输入退货数量">
 			   </div>
 		</div>
 		<div class="layui-form-item">
-		    <label class="layui-form-label">退货备注</label>
+		    <label class="layui-form-label">退货原因</label>
 			<div class="layui-input-block">
 				<textarea  name="remark" class="layui-textarea"></textarea>
 		   </div>
@@ -228,6 +227,9 @@ layui.use(['jquery','form','table','layer','laydate'],function(){
 		      {field:'id', title:'销售ID',align:'center' ,width:'80'}
 		      ,{field:'customerName', title:'客户名称',align:'center',width:'120'}
 		      ,{field:'goodsName', title:'商品名称',align:'center',width:'120'}
+		      ,{field:'goodsImg', title:'商品图片',align:'center',width:'120',templet:function (d) {
+						 return '<img width=40 height=40 src=/file/showImageByPath?path='+d.goodsImg+ ' />';
+					 }}
 		      ,{field:'size', title:'商品规格',align:'center',width:'120'}
 		      ,{field:'salesTime', title:'销售时间',align:'center',width:'120'}
 		      ,{field:'number', title:'销售数量',align:'center',width:'100'}
@@ -471,7 +473,7 @@ layui.use(['jquery','form','table','layer','laydate'],function(){
 
 		//退货提交
 		form.on("submit(doBackSubmit)",function(data){
-			$.post("/export/saveExport",data.field,function(res){
+			$.post("/salesBack/saveSalesBack",data.field,function(res){
 				if(res.code==1){
 					tableIns.reload();
 				}

@@ -215,6 +215,9 @@ layui.use(['jquery','form','table','layer','laydate'],function(){
 		      {field:'id', title:'进货ID',align:'center' ,width:'80'}
 		      ,{field:'providerName', title:'供应商',align:'center',width:'120'}
 		      ,{field:'goodsName', title:'商品名称',align:'center',width:'120'}
+		      ,{field:'goodsImg', title:'商品图片',align:'center',width:'120',templet:function (d) {
+						 return '<img width=40 height=40 src=/file/showImageByPath?path='+d.goodsImg+ ' />';
+					 }}
 		      ,{field:'size', title:'商品规格',align:'center',width:'120'}
 		      ,{field:'importTime', title:'进货时间',align:'center',width:'120'}
 		      ,{field:'number', title:'进货数量',align:'center',width:'100'}

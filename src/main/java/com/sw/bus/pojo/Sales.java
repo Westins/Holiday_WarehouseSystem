@@ -56,4 +56,7 @@ public class Sales implements Serializable {
 
     @TableField(exist = false)
     private Integer providerId;
+
+    @TableField(exist = false)
+    private String goodsImg;
 }

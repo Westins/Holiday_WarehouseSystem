@@ -77,6 +77,7 @@ public class ImportController {
             if (null != goods) {
                 im.setGoodsName(goods.getGoodsName());
                 im.setSize(goods.getSize());
+                im.setGoodsImg(goods.getGoodsImg());
             }
         }
         return new DataGridView(page.getTotal(), records);

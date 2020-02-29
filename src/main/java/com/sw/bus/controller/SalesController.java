@@ -80,6 +80,7 @@ public class SalesController {
             if (null != goods) {
                 sales.setGoodsName(goods.getGoodsName());
                 sales.setSize(goods.getSize());
+                sales.setGoodsImg(goods.getGoodsImg());
             }
             if (goods.getProviderId() != null ){
                 sales.setProviderId(goods.getProviderId());

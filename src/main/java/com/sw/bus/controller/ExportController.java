@@ -74,6 +74,7 @@ public class ExportController {
             if (null != goods) {
                 ex.setGoodsName(goods.getGoodsName());
                 ex.setSize(goods.getSize());
+                ex.setGoodsImg(goods.getGoodsImg());
             }
         }
         return new DataGridView(page.getTotal(), records);
