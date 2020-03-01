@@ -20,4 +20,5 @@ public class DataView {
 
     private String timeByYear;
 
+    private Integer goodsId;
 }

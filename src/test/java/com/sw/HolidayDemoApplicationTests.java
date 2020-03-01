@@ -1,5 +1,6 @@
 package com.sw;
 
+import com.sw.bus.service.SalesService;
 import com.sw.sys.common.DataView;
 import com.sw.bus.service.ExportService;
 import com.sw.bus.service.ImportService;
@@ -36,47 +37,10 @@ class HolidayDemoApplicationTests {
     }
 
     @Autowired
-    private ExportService exportService;
-    @Autowired
-    private ImportService importService;
+    private SalesService salesService;
 
     @Test
     public void test() {
-
-        // 查询出近一年的进货数据
-        List<DataView> im = this.importService.loadImportByYear();
-        // 查询出近一年的退货数据
-        List<DataView> ex = this.exportService.loadExportByYear();
-
-        /**
-         * data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-         *
-         * {
-         * 	name: '邮件营销',
-         *  type: 'line',
-         * 	data: [100, 200, 300, 400, 500, 600, 700]
-         * },
-         */
-        List<DataView> importList = TimeUtil.getYearTimeByLate();
-        List<DataView> exportList = TimeUtil.getYearTimeByLate();
-
-        for (DataView dv : importList) {
-            for (Integer i = 0; i < im.size(); i++) {
-                if (im.get(i).getTimeByYear().equals(dv.getTimeByYear())) {
-                    dv.setNumberByYear(im.get(i).getNumberByYear());
-                }
-            }
-        }
-        for (DataView dv : exportList) {
-            for (Integer i = 0; i < ex.size(); i++) {
-                if (ex.get(i).getTimeByYear().equals(dv.getTimeByYear())) {
-                    dv.setNumberByYear(ex.get(i).getNumberByYear());
-                }
-            }
-        }
-
-
-
-
+        salesService.loadGoodsSalesByYear();
     }
 }

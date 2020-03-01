@@ -5,28 +5,16 @@
 
 <mapper namespace="com.sw.bus.dao.ImportMapper">
 
-    <!-- 查询近一年的进货数量 -->
-    <select id="loadImportByYear" resultType="com.sw.sys.common.DataView">
-     SELECT
-     DATE_FORMAT(importTime,'%Y-%m') timeByYear,
-     SUM(number) AS numberByYear
-     FROM
-     bus_import
-     WHERE
-     importTime>DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
-     GROUP BY
-     timeByYear
-    </select>
-
-    <!-- 查询今日进货数量 -->
+    <!-- 查询当前月进货数量 -->
     <select id="loadImportByNow" resultType="Integer">
         SELECT
         IFNULL(SUM(number),0) AS number
         FROM bus_import
         WHERE
-        TO_DAYS(importTime) = TO_DAYS(NOW())
+        date_format(importTime,'%Y-%m')=date_format(now(),'%Y-%m')
     </select>
 
+    <!-- 查询进货数量 -->
     <select id="loadImportByGoods" resultType="com.sw.sys.common.Proportion">
         SELECT
         SUM(im.number) AS value,
@@ -34,6 +22,19 @@
         FROM bus_import im
         LEFT JOIN bus_goods gs
         ON im.goodsId = gs.id
+        GROUP BY im.goodsId
+    </select>
+
+    <!-- 查询当前年进货数量 -->
+    <select id="loadImportGoodsByMonth" resultType="com.sw.sys.common.Proportion">
+        SELECT
+        SUM(im.number) AS value,
+        gs.goodsName AS name
+        FROM bus_import im
+        LEFT JOIN bus_goods gs
+        ON im.goodsId = gs.id
+        WHERE
+        YEAR(importTime)=YEAR(NOW())
         GROUP BY im.goodsId
     </select>
 </mapper>

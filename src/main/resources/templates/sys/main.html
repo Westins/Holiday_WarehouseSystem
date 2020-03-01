@@ -1,232 +1,233 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>仓储系统-工作台</title>
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="format-detection" content="telephone=no">
-	<link rel="stylesheet" href="/resources/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/resources/css/public.css" media="all" />
+    <meta charset="utf-8">
+    <title>仓储系统-工作台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/resources/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/resources/css/public.css" media="all"/>
 </head>
 <body class="childrenBody" style="background: #F8F8F8">
-	<blockquote class="layui-elem-quote layui-bg-green">
-		<div id="nowTime"></div>
-	</blockquote>
-	<div class="layui-row" style="width: 100%;height:90%">
-		<div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 60%">
-			<div class="layui-card-header">商品信息</div>
-			<div class="grid-demo " style="height: 137px">
-				<div class="layui-col-xs6 " style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
-					<h5 style="margin: 15px;color:#3F3F3F">今日进货</h5>
-					<h1 style="color: #499c54;margin-left: 15px" id="importNumber">10</h1>
-				</div>
-				<div class="layui-col-xs6 " style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
-					<h5 style="margin: 15px;color: #3F3F3F">今日退货</h5>
-					<h1 style="color: #499c54;margin-left: 15px" id="exportNumber">20</h1>
-				</div>
-			</div>
-		</div>
-		<div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 60%">
-			<div class="layui-card-header">系统公告</div>
-			<div class="grid-demo"  style="width: 100%;height: 137px">
-				<ul class="layui-timeline" id="noticeUl"></ul>
-			</div>
-		</div>
-		<div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 60%">
-			<div class="layui-card-header">最近登录</div>
-			<div class="grid-demo"  style="width: 100%;height: 137px">
-				<ul class="layui-timeline" id="logInfoUl"></ul>
-			</div>
-		</div>
-		<div class="layui-col-xs6 " style="background: white;border: 8px #F8F8F8 solid;height: 40%">
-			<div class="grid-demo" id="main2" style="width: 100%;height: 280px;border: 8px #F8F8F8 solid"></div>
-		</div>
-		<div class="layui-col-xs6 " style="background: white;border: 8px #F8F8F8 solid;height: 40%">
-			<div class="grid-demo" style="width: 100%;height: 134px;border: 8px #F8F8F8 solid" id="importDiv">
-			</div>
-			<div class="grid-demo" style="width: 100%;height: 134px;border: 8px #F8F8F8 solid" id="exportDiv">
-			</div>
-		</div>
-	</div>
-	<input type="hidden" id="time" >
-	<script type="text/javascript" src="/resources/layui/layui.js"></script>
-	<script type="text/javascript" src="/resources/js/main.js"></script>
-	<script type="text/javascript" src="/resources/js/echarts.min.js"></script>
-	<script>
-		// ---------------------------------  数据初始化 -------------------------------------
+<blockquote class="layui-elem-quote layui-bg-green">
+    <div id="nowTime"></div>
+</blockquote>
+<div class="layui-row" style="width: 100%;height:90%">
+    <div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 70%">
+        <div class="layui-card-header">商品进退货信息</div>
+        <div class="grid-demo " style="height: 137px">
+            <div class="layui-col-xs6 "
+                 style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
+                <h5 style="margin: 15px;color:#3F3F3F">本月进货</h5>
+                <h1 style="color: #499c54;margin-left: 15px" id="importNumber">0</h1>
+            </div>
+            <div class="layui-col-xs6 "
+                 style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
+                <h5 style="margin: 15px;color: #3F3F3F">本月退货</h5>
+                <h1 style="color: #499c54;margin-left: 15px" id="exportNumber">0</h1>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 70%">
+        <div class="layui-card-header">商品销售信息</div>
+        <div class="grid-demo " style="height: 137px">
+            <div class="layui-col-xs6 "
+                 style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
+                <h5 style="margin: 15px;color:#3F3F3F">本月销售额</h5>
+                <h1 style="color: #499c54;margin-left: 15px" id="sales">0</h1>
+            </div>
+            <div class="layui-col-xs6 "
+                 style="background: #F8F8F8;height: 75%;border: 5px white solid;margin-top: 10px">
+                <h5 style="margin: 15px;color: #3F3F3F">本月退货额</h5>
+                <h1 style="color: #499c54;margin-left: 15px" id="salesBack">0</h1>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-xs4 " style="background: white;border: 8px #F8F8F8 solid;height: 70%">
+        <div class="layui-card-header">系统公告</div>
+        <div class="grid-demo" style="width: 100%;height: 137px; ">
+            <ul class="layui-timeline" id="noticeUl"></ul>
+        </div>
+    </div>
+    <div class="layui-col-xs6 " style="background: white;border: 8px #F8F8F8 solid;height: 40%">
+        <div class="grid-demo" id="main2" style="width: 100%;height: 280px;border: 8px #F8F8F8 solid"></div>
+    </div>
+    <div class="layui-col-xs6 " style="background: white;border: 8px #F8F8F8 solid;height: 40%">
+        <div class="grid-demo" style="width: 100%;height: 134px;border: 8px #F8F8F8 solid" id="importDiv">
+        </div>
+        <div class="grid-demo" style="width: 100%;height: 134px;border: 8px #F8F8F8 solid" id="exportDiv">
+        </div>
+    </div>
+</div>
+<input type="hidden" id="time">
+<script type="text/javascript" src="/resources/layui/layui.js"></script>
+<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript" src="/resources/js/echarts.min.js"></script>
+<script>
+    // ---------------------------------  数据初始化 -------------------------------------
 
-		layui.use(['jquery','form','table','layer','laydate'],function() {
-			var $ = layui.jquery;
+    layui.use(['jquery', 'form', 'table', 'layer', 'laydate'], function () {
+        var $ = layui.jquery;
 
-			// 基于准备好的dom，初始化echarts实例
-			var importDiv = echarts.init(document.getElementById('importDiv'));
-			var exportDiv = echarts.init(document.getElementById('exportDiv'));
-			var myChart2 = echarts.init(document.getElementById('main2'));
+        // 基于准备好的dom，初始化echarts实例
+        var importDiv = echarts.init(document.getElementById('importDiv'));
+        var exportDiv = echarts.init(document.getElementById('exportDiv'));
+        var myChart2 = echarts.init(document.getElementById('main2'));
 
-			//--- 加载最近登录数据
-			$.get("/main/loadMainLogInfo",function (obj) {
-				var data = obj.data;
-				if(data != null){
-					var html = "";
-					var ul = $("#logInfoUl");
-					$.each(data,function(index,item){
-						html+='<li class="layui-timeline-item">\n' +
-								'\t\t\t\t\t\t<i class="layui-icon layui-timeline-axis"></i>\n' +
-								'\t\t\t\t\t\t<div class="layui-timeline-content layui-text">\n' +
-								'\t\t\t\t\t\t\t<div class="layui-timeline-title">'+item.loginName+'|'+item.loginTime+'</div>\n' +
-								'\t\t\t\t\t\t</div>\n' +
-								'\t\t\t\t\t</li>'
-					});
-					ul.html(html);
-				}
-			});
-			// --- 加载最近系统公告
-			$.get("/main/loadMainNotice",function (obj) {
-				var data = obj.data;
-				if(data != null){
-					var html = "";
-					var ul = $("#noticeUl");
-					$.each(data,function(index,item){
-						html+='<li class="layui-timeline-item">\n' +
-								'\t\t\t\t\t\t<i class="layui-icon layui-timeline-axis"></i>\n' +
-								'\t\t\t\t\t\t<div class="layui-timeline-content layui-text">\n' +
-								'\t\t\t\t\t\t\t<div class="layui-timeline-title">'+item.title+'|'+item.createTime+'</div>\n' +
-								'\t\t\t\t\t\t</div>\n' +
-								'\t\t\t\t\t</li>'
-					});
-					ul.html(html);
-				}
-			});
+        // --- 加载最近系统公告
+        $.get("/main/loadMainNotice", function (obj) {
+            var data = obj.data;
+            if (data != null) {
+                var html = "";
+                var ul = $("#noticeUl");
+                $.each(data, function (index, item) {
+                    html += '<li class="layui-timeline-item">\n' +
+                        '\t\t\t\t\t\t<i class="layui-icon layui-timeline-axis"></i>\n' +
+                        '\t\t\t\t\t\t<div class="layui-timeline-content layui-text">\n' +
+                        '\t\t\t\t\t\t\t<div class="layui-timeline-title">' + item.title + '|' + item.createTime + '</div>\n' +
+                        '\t\t\t\t\t\t</div>\n' +
+                        '\t\t\t\t\t</li>'
+                });
+                ul.html(html);
+            }
+        });
 
-			// -- 加载今日进货数量 、今日退货数量
-			$.get("/main/loadImportExportByNow",function (obj) {
-				$("#exportNumber").html(obj.exportNumber);
-				$("#importNumber").html(obj.importNumber);
-			});
-			var data = null;
-			$.ajax({
-				type:"GET",
-				url:"/main/loadImportExportByYear",
-				async:false,
-				success:function (obj) {
-					data = obj;
-				}
-			});
-			var exportImportData = null;
-			$.ajax({
-				type:"GET",
-				url:"/main/loadExportImportByProportion",
-				async:false,
-				success:function (obj) {
-					exportImportData = obj;
-				}
-			});
-			// 指定图表的配置项和数据
-			var importDemo = {
-				title: {
-					text: '商品进货占比',
-					subtext: '',
-					left: 'center'
-				},
-				tooltip: {
-					trigger: 'item',
-					formatter: '{a} <br/>{b} : {c} ({d}%)'
-				},
-				legend: {
-					orient: 'vertical',
-					left: 'left',
-					data: exportImportData.importList.name
-				},
-				series: [
-					{
-						name: '商品进货',
-						type: 'pie',
-						radius: '55%',
-						center: ['50%', '60%'],
-						data: exportImportData.importList,
-						emphasis: {
-							itemStyle: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							}
-						}
-					}
-				]
-			};
-			var exportDemo = {
-				title: {
-					text: '商品退货占比',
-					subtext: '',
-					left: 'center'
-				},
-				tooltip: {
-					trigger: 'item',
-					formatter: '{a} <br/>{b} : {c} ({d}%)'
-				},
-				legend: {
-					orient: 'vertical',
-					left: 'left',
-					data: exportImportData.exportList.name
-				},
-				series: [
-					{
-						name: '商品退货',
-						type: 'pie',
-						radius: '55%',
-						center: ['50%', '60%'],
-						data: exportImportData.exportList,
-						emphasis: {
-							itemStyle: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							}
-						}
-					}
-				]
-			};
-			var option2 = {
-				title: {
-					text: '近一年进退货情况'
-				},
-				tooltip: {
-					trigger: 'axis'
-				},
-				legend: {
-					data: ['进货', '退货']
-				},
-				xAxis: {
-					type: 'category',
-					boundaryGap: false,
-					data: data.time
-				},
-				yAxis: {
-					type: 'value'
-				},
-				series: [
-					{
-						name: '进货',
-						type: 'line',
-						data: data.importNumber
-					},
-					{
-						name: '退货',
-						type: 'line',
-						data: data.exportNumber
-					}
-				]
-			};
+        // -- 加载本月 商品进货退货数量
+        $.get("/main/loadImportExportByNow", function (obj) {
+            $("#exportNumber").html(obj.exportNumber);
+            $("#importNumber").html(obj.importNumber);
+        });
+        // -- 加载本月 商品销售额和退货额
+        $.get("/main/loadSalesAndBackNumberByMonth", function (obj) {
+            console.log("obj:"+JSON.stringify(obj))
+            $("#sales").html(obj.salesNumber);
+            $("#salesBack").html(obj.salesBackNumber);
+        });
+        // -- 加载最近一年(12个月)的个商品销售数据
+        var data = null;
+        $.ajax({
+            type: "GET",
+            url: "/main/loadSalesGoodsByYear",
+            async: false,
+            success: function (obj) {
+                data = obj.data;
+            }
+        });
+        // -- 加载今年进货商品占比
+        var importDataByNowYear = null;
+        $.ajax({
+            type: "GET",
+            url: "/main/loadImportGoodsByMonth",
+            async: false,
+            success: function (obj) {
+				importDataByNowYear = obj.data;
+            }
+        });
+        // -- 加载今年销售商品占比
+        var salesDataByNowYear = null;
+        $.ajax({
+            type: "GET",
+            url: "/main/loadSalesGoodsByMonth",
+            async: false,
+            success: function (obj) {
+				salesDataByNowYear = obj.data;
+            }
+        });
+        // 指定图表的配置项和数据
+        var importDemo = {
+            title: {
+                text: '商品进货商品占比',
+                subtext: '',
+                left: 'right'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: importDataByNowYear.name
+            },
+            series: [
+                {
+                    name: '商品进货',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: importDataByNowYear,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        var exportDemo = {
+            title: {
+                text: '商品销售商品占比',
+                subtext: '',
+                left: 'right'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: salesDataByNowYear.name
+            },
+            series: [
+                {
+                    name: '商品退货',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: salesDataByNowYear,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        var option2 = {
+            title: {
+                text: '近期一年各商品的销售情况'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: data[0].nameData
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: data[0].timeData
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: data
+        };
 
-			// 使用刚指定的配置项和数据显示图表。
-			importDiv.setOption(importDemo);
-			exportDiv.setOption(exportDemo);
-			myChart2.setOption(option2);
-		});
-	</script>
+        // 使用刚指定的配置项和数据显示图表。
+        importDiv.setOption(importDemo);
+        exportDiv.setOption(exportDemo);
+        myChart2.setOption(option2);
+    });
+</script>
 </body>
 </html>

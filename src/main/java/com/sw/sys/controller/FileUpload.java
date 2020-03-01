@@ -1,7 +1,6 @@
 package com.sw.sys.controller;
 
 import cn.hutool.core.date.DateUtil;
-import com.sw.sys.common.DataGridView;
 import com.sw.sys.common.FileObjectUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +57,7 @@ public class FileUpload {
      */
     @RequestMapping("/showImageByPath")
     public ResponseEntity<Object> showImageByPath(String path) {
+        System.out.println("path:"+path);
         return FileObjectUtil.createResponseEntity(path);
     }
 }

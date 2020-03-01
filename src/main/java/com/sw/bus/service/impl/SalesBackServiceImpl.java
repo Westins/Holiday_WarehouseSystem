@@ -8,6 +8,7 @@ import com.sw.bus.pojo.SalesBack;
 import com.sw.bus.service.GoodsService;
 import com.sw.bus.service.SalesBackService;
 import com.sw.bus.service.SalesService;
+import com.sw.sys.common.Proportion;
 import com.sw.sys.common.WebUtil;
 import com.sw.sys.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ：单威
@@ -46,7 +48,7 @@ public class SalesBackServiceImpl extends ServiceImpl<SalesBackMapper, SalesBack
         // 修改商品销售数量
         if(sales.getNumber() - number >= 0){
             sales.setNumber(sales.getNumber() - number);
-            this.salesService.save(sales);
+            this.salesService.updateById(sales);
         }
 
         SalesBack salesBack = new SalesBack();
@@ -60,5 +62,10 @@ public class SalesBackServiceImpl extends ServiceImpl<SalesBackMapper, SalesBack
         salesBack.setGoodsId(sales.getGoodsId());
 
         this.getBaseMapper().insert(salesBack);
+    }
+
+    @Override
+    public Integer loadSalesBackGoodsByMonth() {
+        return this.getBaseMapper().loadSalesBackGoodsByMonth();
     }
 }

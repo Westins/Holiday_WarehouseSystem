@@ -5,4 +5,11 @@
 
 <mapper namespace="com.sw.bus.dao.SalesBackMapper">
 
+    <!--查询本月销售退货额 -->
+    <select id="loadSalesBackGoodsByMonth" resultType="Integer">
+        SELECT SUM(number) AS value
+        FROM bus_salesback
+        WHERE
+        DATE_FORMAT( salesBackTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+    </select>
 </mapper>

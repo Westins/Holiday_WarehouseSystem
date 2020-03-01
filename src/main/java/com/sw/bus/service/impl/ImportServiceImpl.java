@@ -80,4 +80,9 @@ public class ImportServiceImpl extends ServiceImpl<ImportMapper, Import> impleme
     public List<Proportion> loadImportByGoods() {
         return this.baseMapper.loadImportByGoods();
     }
+
+    @Override
+    public List<Proportion> loadImportGoodsByMonth() {
+        return this.baseMapper.loadImportGoodsByMonth();
+    }
 }

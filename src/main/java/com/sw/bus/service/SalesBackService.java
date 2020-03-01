@@ -2,6 +2,9 @@ package com.sw.bus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sw.bus.pojo.SalesBack;
+import com.sw.sys.common.Proportion;
+
+import java.util.List;
 
 /**
  * @author ：单威
@@ -11,9 +14,17 @@ import com.sw.bus.pojo.SalesBack;
 public interface SalesBackService extends IService<SalesBack> {
     /**
      * 添加 销售退货信息
-     * @param id 退货的出售订单ID
+     *
+     * @param id     退货的出售订单ID
      * @param number 退货数量
      * @param remark 拖货原因
      */
     void saveSalesBack(Integer id, Integer number, String remark);
+
+    /**
+     * 加载今年销售退货数量
+     *
+     * @return
+     */
+    Integer loadSalesBackGoodsByMonth();
 }

@@ -33,4 +33,11 @@ public interface ImportService extends IService<Import> {
      * @return
      */
     List<Proportion> loadImportByGoods();
+
+    /**
+     * 查询当年进货商品信息
+     *
+     * @return
+     */
+    List<Proportion> loadImportGoodsByMonth();
 }

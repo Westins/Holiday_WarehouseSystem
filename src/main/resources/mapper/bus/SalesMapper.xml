@@ -3,6 +3,49 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sw.bus.dao">
+<mapper namespace="com.sw.bus.dao.SalesMapper">
 
+    <!-- 查询出售商品ID  -->
+    <select id="loadSalesGoodsIds" resultType="Integer">
+     SELECT goodsId
+     FROM bus_sales
+     GROUP BY goodsId
+    </select>
+
+    <!-- 查询最近一年(12个月)的商品销售情况 -->
+    <select id="loadSalesYearByGoodsId" parameterType="Integer" resultType="com.sw.sys.common.DataView">
+     SELECT
+     DATE_FORMAT(salesTime,'%Y-%m') timeByYear,
+     SUM(number) AS numberByYear,
+     goodsId
+     FROM
+     bus_sales
+     WHERE
+     salesTime>DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+     AND
+     goodsId = #{goodsId}
+     GROUP BY
+     timeByYear
+    </select>
+
+    <!-- 查询今年商品出售情况 -->
+    <select id="loadSalesGoodsByMonth" resultType="com.sw.sys.common.Proportion">
+        SELECT
+        SUM(bs.number) AS value,
+        gs.goodsName AS name
+        FROM bus_sales bs
+        LEFT JOIN bus_goods gs
+        ON bs.goodsId = gs.id
+        WHERE
+        YEAR(salesTime)=YEAR(NOW())
+        GROUP BY bs.goodsId
+    </select>
+
+    <!-- 查询本月销售额 -->
+    <select id="loadSalesByMonth" resultType="Integer">
+        SELECT SUM(number) AS value
+        FROM bus_sales
+        WHERE
+        DATE_FORMAT( salesTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+    </select>
 </mapper>

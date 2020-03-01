@@ -71,7 +71,7 @@ public class FileObjectUtil {
             header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             //创建ResponseEntity对象
             ResponseEntity<Object> entity =
-                    new ResponseEntity<Object>(bytes, header, HttpStatus.CREATED);
+                    new ResponseEntity<>(bytes, header, HttpStatus.CREATED);
             return entity;
         }
         return null;

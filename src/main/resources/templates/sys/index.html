@@ -58,18 +58,19 @@
                 <li class="layui-nav-item lockcms" pc>
                     <a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
                 </li>
+                <input type="hidden" id="userImgPath" th:value="${session.user.imgPath}">
                 <li class="layui-nav-item" id="userInfo">
-                    <a href="javascript:;"><img src="/resources/images/face.jpg" class="layui-nav-img userAvatar"
+                    <a href="javascript:;"><img class="layui-nav-img userAvatar" src="" id="userImg"
                                                 width="35" height="35"><cite class="adminName"
                                                                              th:text="${session.user.name}">用户名</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="/resources/page/user/userInfo.html"><i
-                                class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="/resources/page/user/changePwd.html"><i
-                                class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
-                        <dd><a href="javascript:;" class="showNotice"><i
-                                class="layui-icon">&#xe645;</i><cite>系统公告</cite><span
-                                class="layui-badge-dot"></span></a></dd>
+                        <!--                        <dd><a href="javascript:;" data-url="/resources/page/user/userInfo.html"><i-->
+                        <!--                                class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>-->
+                        <!--                        <dd><a href="javascript:;" data-url="/resources/page/user/changePwd.html"><i-->
+                        <!--                                class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>-->
+                        <!--                        <dd><a href="javascript:;" class="showNotice"><i-->
+                        <!--                                class="layui-icon">&#xe645;</i><cite>系统公告</cite><span-->
+                        <!--                                class="layui-badge-dot"></span></a></dd>-->
                         <dd pc><a href="javascript:;" class="functionSetting"><i class="layui-icon">&#xe620;</i><cite>功能设定</cite><span
                                 class="layui-badge-dot"></span></a></dd>
                         <dd pc><a href="javascript:;" class="changeSkin"><i
@@ -84,7 +85,7 @@
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
-            <a class="img" title="我的头像"><img src="/resources/images/face.jpg" class="userAvatar"></a>
+            <a class="img" title="我的头像"><img src="" class="userAvatar" id="userImg2"></a>
             <p>你好！<span class="userName" th:text="${session.user.name}">用户名</span>, 欢迎登录</p>
         </div>
         <!-- 搜索 -->
@@ -134,7 +135,6 @@
         <p><span>Author @2020 单威</span></p>
     </div>
 </div>
-A
 
 <!-- 移动导航 -->
 <div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
@@ -143,5 +143,13 @@ A
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
 <script type="text/javascript" src="/resources/js/index.js"></script>
 <script type="text/javascript" src="/resources/js/cache.js"></script>
+<script type="text/javascript">
+    layui.use(['jquery'], function () {
+        var $ = layui.jquery;
+        var imgPath = $("#userImgPath").val();
+        $("#userImg").attr("src", "/file/showImageByPath?path=" + imgPath);
+        $("#userImg2").attr("src", "/file/showImageByPath?path=" + imgPath);
+    });
+</script>
 </body>
 </html>
