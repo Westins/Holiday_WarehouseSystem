@@ -37,6 +37,8 @@ public interface ImportMapper extends BaseMapper<Import> {
 
     /**
      * 查询当年进货商品信息
+     *
+     * @return
      */
     List<Proportion> loadImportGoodsByMonth();
 }

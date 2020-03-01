@@ -36,11 +36,17 @@ public class ShiroAutoConfiguration {
 
     private static final String SHIRO_DIALECT = "shiroDialect";
     private static final String SHIRO_FILTER = "shiroFilter";
-    // 加密方式
+    /**
+     * 加密方式
+     */
     private String hashAlgorithmName = "MD5";
-    // 散列次数
+    /**
+     * 散列次数
+     */
     private int hashIterations = 2;
-    // 默认的登陆页面
+    /**
+     * 默认的登陆页面
+     */
     private String loginUrl = "/templates/sys/login";
 
     private String[] anonUrls;

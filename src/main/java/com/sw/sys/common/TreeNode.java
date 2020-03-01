@@ -43,7 +43,9 @@ public class TreeNode {
     private Boolean spread;
     private List<TreeNode> children = new ArrayList<TreeNode>();
 
-    //0代表不选中  1代表选中
+    /**
+     * 0代表不选中  1代表选中
+     */
     private String checkArr = "0";
 
     /**

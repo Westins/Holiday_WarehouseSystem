@@ -18,7 +18,9 @@ import java.util.Properties;
  * @date ：Created in 2020/2/20 12:38
  */
 public class FileObjectUtil {
-    //文件上传的保存路径
+    /**
+     * 默认上传路径
+     */
     public static String UPLOAD_PATH = "F:/upload/";
 
     static {

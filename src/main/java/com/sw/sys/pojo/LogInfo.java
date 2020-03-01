@@ -26,13 +26,10 @@ public class LogInfo implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    //登录者名称
     private String loginName;
 
-    //登录者IP地址
     private String loginIp;
 
-    // 登录者时间
     private Date loginTime;
 
 
