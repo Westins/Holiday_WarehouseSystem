@@ -28,7 +28,7 @@
      timeByYear
     </select>
 
-    <!-- 查询今年商品出售情况 -->
+    <!-- 查询月出售情况 -->
     <select id="loadSalesGoodsByMonth" resultType="com.sw.sys.common.Proportion">
         SELECT
         SUM(bs.number) AS value,
@@ -37,7 +37,7 @@
         LEFT JOIN bus_goods gs
         ON bs.goodsId = gs.id
         WHERE
-        YEAR(salesTime)=YEAR(NOW())
+        DATE_FORMAT( salesTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
         GROUP BY bs.goodsId
     </select>
 

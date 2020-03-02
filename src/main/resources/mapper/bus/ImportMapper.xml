@@ -25,7 +25,7 @@
         GROUP BY im.goodsId
     </select>
 
-    <!-- 查询当前年进货数量 -->
+    <!-- 查询当前月进货数量 -->
     <select id="loadImportGoodsByMonth" resultType="com.sw.sys.common.Proportion">
         SELECT
         SUM(im.number) AS value,
@@ -34,7 +34,7 @@
         LEFT JOIN bus_goods gs
         ON im.goodsId = gs.id
         WHERE
-        YEAR(importTime)=YEAR(NOW())
+        DATE_FORMAT( importTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
         GROUP BY im.goodsId
     </select>
 </mapper>

@@ -118,7 +118,7 @@
                 data = obj.data;
             }
         });
-        // -- 加载今年进货商品占比
+        // -- 加载今月进货商品占比
         var importDataByNowYear = null;
         $.ajax({
             type: "GET",
@@ -128,7 +128,7 @@
 				importDataByNowYear = obj.data;
             }
         });
-        // -- 加载今年销售商品占比
+        // -- 加载今月销售商品占比
         var salesDataByNowYear = null;
         $.ajax({
             type: "GET",
@@ -156,7 +156,7 @@
             },
             series: [
                 {
-                    name: '商品进货',
+                    name: '',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],
@@ -173,7 +173,7 @@
         };
         var exportDemo = {
             title: {
-                text: '商品销售商品占比',
+                text: '本月销售商品占比',
                 subtext: '',
                 left: 'right'
             },
@@ -188,7 +188,7 @@
             },
             series: [
                 {
-                    name: '商品退货',
+                    name: '',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],
@@ -205,7 +205,8 @@
         };
         var option2 = {
             title: {
-                text: '近期一年各商品的销售情况'
+                text: '商品的销售情况',
+                bottom: '0'
             },
             tooltip: {
                 trigger: 'axis'

@@ -98,7 +98,7 @@ public class MainController {
     }
 
     /**
-     * 加载今年商品进货占比
+     * 加载今月商品进货占比
      *
      * @return
      */
@@ -109,7 +109,7 @@ public class MainController {
     }
 
     /**
-     * 加载今年商品出售占比
+     * 加载今月商品出售占比
      *
      * @return
      */
