@@ -11,6 +11,7 @@ import com.sw.bus.service.ImportService;
 import com.sw.sys.pojo.Notice;
 import com.sw.sys.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping(value = "/main")
+@Transactional(rollbackFor = Exception.class)
 public class MainController {
 
     /**

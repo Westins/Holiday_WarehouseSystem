@@ -12,6 +12,7 @@
     <artifactId>holiday_demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>holiday_demo</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -109,6 +110,12 @@
             <groupId>com.belerweb</groupId>
             <artifactId>pinyin4j</artifactId>
             <version>2.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.13.Final</version>
         </dependency>
 
         <dependency>
