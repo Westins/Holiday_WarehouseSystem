@@ -28,13 +28,13 @@
     * Tomcat 8.5
     * MySQL
 ## 主要功能
-![系统功能](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/仓库管理系统功能图.png) 
+![系统功能](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/FunctionalDiagram.png) 
 ## 系统部分功能截图
-![登录页面](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/登录界面.png) 
-![登录主页(工作台)](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/工作台.png) 
-![商品管理](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/商品管理.png) 
-![权限管理](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/权限管理_显示查询.png) 
-![角色权限分配](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/角色权限分配.png) 
+![登录页面](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/login.png) 
+![登录主页(工作台)](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/index.png) 
+![商品管理](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/GoodsManagement.png) 
+![权限管理](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/permissionsDistribution.png) 
+![角色权限分配](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/permissionManagement.png) 
 ## 项目心得总结
 * 项目独立完成，学习并掌握Shiro、Redis等技术的基本使用，对Shiro基本工作原理和Redis的存储数据类型以及原理都有一定的了解。
 * 深度结合阿里编码规约，规范编码格式。
