@@ -34,7 +34,7 @@
 ![登录主页(工作台)](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/index.png) 
 ![商品管理](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/GoodsManagement.png) 
 ![权限管理](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/permissionsDistribution.png) 
-![角色权限分配](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/permissionManagement.png) 
+![角色权限分配](https://github.com/Westins/holiday_WarehouseSystem/raw/master/demoImg/permissionsManagement.png) 
 ## 项目心得总结
 * 项目独立完成，学习并掌握Shiro、Redis等技术的基本使用，对Shiro基本工作原理和Redis的存储数据类型以及原理都有一定的了解。
 * 深度结合阿里编码规约，规范编码格式。
